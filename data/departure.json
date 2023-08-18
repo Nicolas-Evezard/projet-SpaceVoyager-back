@@ -1,0 +1,17 @@
+[
+    {
+        "departure_id": 1,
+        "departure_date": "2023-09-11",
+        "reserved_place": true
+    },
+    {
+        "departure_id": 2,
+        "departure_date": "2023-08-25",
+        "reserved_place": true
+    },
+    {
+        "departure_id": 3,
+        "departure_date": "2023-08-19",
+        "reserved_place": true
+    }
+]

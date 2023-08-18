@@ -1,0 +1,22 @@
+[
+  {
+    "booking_id": 1,
+    "nbparticipants": 2,
+    "total_price": 1500
+  },
+  {
+    "booking_id": 2,
+    "nbparticipants": 1,
+    "total_price": 900
+  },
+  {
+    "booking_id": 3,
+    "nbparticipants": 2,
+    "total_price": 1500
+  },
+  {
+    "booking_id": 4,
+    "nbparticipants": 1,
+    "total_price": 1100
+  }
+]

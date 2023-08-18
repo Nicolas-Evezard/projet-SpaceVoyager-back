@@ -1,0 +1,17 @@
+[
+    {
+        "room_id": 1,
+        "content": "Notre chambre standard tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+        "price": 250,
+        "max_place":5,
+        "rank": "Standard"
+    },
+
+    {
+        "room_id": 2,
+        "content": "Chambre haut de gamme avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+        "price": 400,
+        "max_place": 5,
+        "rank": "haut standing"
+    }
+]
