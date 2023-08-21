@@ -1,26 +1,47 @@
 [
-    {
-        "user_id": 1,
-        "firstname": "chuck",
-        "lastname": "norris",
-        "mail": "cn@gmail.com",
-        "password": "1234",
-        "role": "member"
-    },
-    {
-        "user_id": 2,
-        "firstname": "Jade",
-        "lastname": "simon",
-        "mail": "js@gmail.com",
-        "password": "1234",
-        "role": "administration"
-    },
-    {
-        "user_id": 3,
-        "firstname": "jacky",
-        "lastname": "chan",
-        "mail": "jc@gmail.com",
-        "password": "1234",
-        "role": "member"
-    }
+  {
+    "firstname": "Chuck",
+    "lastname": "Norris",
+    "mail": "cn@gmail.com",
+    "password": "1234",
+    "role": "member"
+  },
+  {
+    "firstname": "Jade",
+    "lastname": "Simon",
+    "mail": "js@gmail.com",
+    "password": "1234",
+    "role": "administration"
+  },
+  {
+    "firstname": "Jacky",
+    "lastname": "Chan",
+    "mail": "jc@gmail.com",
+    "password": "1234",
+    "role": "member"
+  },
+
+  {
+    "firstname": "Ben",
+    "lastname": "Datamaster",
+    "mail": "bd@gmail.com",
+    "password": "1234",
+    "role": "member"
+  },
+
+  {
+    "firstname": "JB",
+    "lastname": "LeBoss",
+    "mail": "jb@gmail.com",
+    "password": "1234",
+    "role": "member"
+  },
+
+  {
+    "firstname": "Flore",
+    "lastname": "Cookie",
+    "mail": "cookie@gmail.com",
+    "password": "1234",
+    "role": "member"
+  }
 ]

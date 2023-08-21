@@ -1,22 +1,69 @@
 [
   {
-    "booking_id": 1,
     "nbparticipants": 2,
-    "total_price": 1500
+    "total_price": 1500,
+    "hostel": "Hotel le Marsouin",
+    "room": "Standard du Marsouin",
+    "departure": "2023-09-11",
+    "comeback": "2023-09-12",
+    "user": "cn@gmail.com"
   },
   {
-    "booking_id": 2,
     "nbparticipants": 1,
-    "total_price": 900
+    "total_price": 900,
+    "hostel": "Hotel le Marsouin",
+    "room": "Standard du Marsouin",
+    "departure": "2023-09-11",
+    "comeback": "2023-09-12",
+    "user": "jc@gmail.com"
   },
+
   {
-    "booking_id": 3,
     "nbparticipants": 2,
-    "total_price": 1500
+    "total_price": 1500,
+    "hostel": "Hotel le Marsouin",
+    "room": "Standard du Marsouin",
+    "departure": "2023-09-11",
+    "comeback": "2023-09-12",
+    "user": "js@gmail.com"
+  },
+
+  {
+    "nbparticipants": 5,
+    "total_price": 5000,
+    "hostel": "Hotel le Marsouin",
+    "room": "Haut standing du Marsouin",
+    "departure": "2023-08-25",
+    "comeback": "2023-09-28",
+    "user": "bd@gmail.com"
   },
   {
-    "booking_id": 4,
+    "nbparticipants": 3,
+    "total_price": 5000,
+    "hostel": "Hotel le Mercure",
+    "room": "Haut standing du Mercure",
+    "departure": "2023-08-30",
+    "comeback": "2023-09-07",
+    "user": "bd@gmail.com"
+  },
+
+  {
     "nbparticipants": 1,
-    "total_price": 1100
+    "total_price": 1000,
+    "hostel": "Hotel le Saturne",
+    "room": "Standard du Saturne",
+    "departure": "2023-09-05",
+    "comeback": "2023-09-09",
+    "user": "jb@gmail.com"
+  },
+
+  {
+    "nbparticipants": 4,
+    "total_price": 3000,
+    "hostel": "Hotel le Saturne",
+    "room": "Haut standing du Saturne",
+    "departure": "2023-10-19",
+    "comeback": "2023-10-21",
+    "user": "cookie@gmail.com"
   }
 ]

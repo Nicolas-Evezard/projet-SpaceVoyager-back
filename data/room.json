@@ -1,17 +1,111 @@
 [
-    {
-        "room_id": 1,
-        "content": "Notre chambre standard tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
-        "price": 250,
-        "max_place":5,
-        "rank": "Standard"
-    },
+  {
+    "content": "Notre chambre standard du Marsouin tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard du Marsouin",
+    "hostel": "Hotel le Marsouin"
+  },
 
-    {
-        "room_id": 2,
-        "content": "Chambre haut de gamme avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
-        "price": 400,
-        "max_place": 5,
-        "rank": "haut standing"
-    }
+  {
+    "content": "Chambre haut de gamme du Marsouin avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing du Marsouin",
+    "hostel": "Hotel le Marsouin"
+  },
+
+  {
+    "content": "Notre chambre standard du Venusia tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard du Venusia",
+    "hostel": "Hotel le Venusia"
+  },
+
+  {
+    "content": "Chambre haut de gamme du Venusia avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing du Venusia",
+    "hostel": "Hotel le Venusia"
+  },
+
+  {
+    "content": "Notre chambre standard du Mercure tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard du Mercure",
+    "hostel": "Hotel le Mercure"
+  },
+
+  {
+    "content": "Chambre haut de gamme du Mercure avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing du Mercure",
+    "hostel": "Hotel le Mercure"
+  },
+
+  {
+    "content": "Notre chambre standard du Jupiter tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard du Jupiter",
+    "hostel": "Hotel le Jupiter"
+  },
+
+  {
+    "content": "Chambre haut de gamme du Jupiter avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing du Jupiter",
+    "hostel": "Hotel le Jupiter"
+  },
+
+  {
+    "content": "Notre chambre standard du Saturne tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard du Saturne",
+    "hostel": "Hotel le Mercure"
+  },
+
+  {
+    "content": "Chambre haut de gamme du Saturne avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing du Saturne",
+    "hostel": "Hotel le Saturne"
+  },
+  {
+    "content": "Notre chambre standard de l'Uranoscope tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard de l'Uranoscope",
+    "hostel": "Hotel le Mercure"
+  },
+
+  {
+    "content": "Chambre haut de gamme de l'Uranoscope avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing de l'Uranoscope",
+    "hostel": "Hotel l'Uranoscope"
+  },
+  {
+    "content": "Notre chambre standard du Neptunia tout confort avec vue panoramique pour pleinement apprécier la vue depuis notre hotel.",
+    "price": 250,
+    "max_place": 5,
+    "rank": "Standard du Neptunia",
+    "hostel": "Hotel le Neptunia"
+  },
+
+  {
+    "content": "Chambre haut de gamme du Neptuniae avec salle de bain lit tout confort pour apprécier pleinement votre sejour",
+    "price": 400,
+    "max_place": 5,
+    "rank": "Haut standing du Neptunia",
+    "hostel": "Hotel le Neptunia"
+  }
 ]

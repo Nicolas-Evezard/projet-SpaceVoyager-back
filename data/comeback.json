@@ -1,33 +1,33 @@
 [
   {
-    "departure_date": "2023-09-11",
+    "comeback_date": "2023-09-12",
+    "reserved_place": 5,
+    "spaceship": "Le SpaceVoyager 2",
+    "planet": "Mars"
+  },
+  {
+    "comeback_date": "2023-09-07",
+    "reserved_place": 3,
+    "spaceship": "Le SpaceVoyager 2",
+    "planet": "Mercure"
+  },
+
+  {
+    "comeback_date": "2023-09-28",
     "reserved_place": 5,
     "spaceship": "Le SpaceVoyager 2",
     "planet": "Mars"
   },
 
   {
-    "departure_date": "2023-08-30",
-    "reserved_place": 3,
-    "spaceship": "Le SpaceVoyager 2",
-    "planet": "Mercure"
-  },
-  {
-    "departure_date": "2023-09-05",
+    "comeback_date": "2023-09-09",
     "reserved_place": 1,
     "spaceship": "Le SpaceVoyager 2",
     "planet": "Saturne"
   },
 
   {
-    "departure_date": "2023-08-25",
-    "reserved_place": 5,
-    "spaceship": "Le SpaceVoyager 2",
-    "planet": "Mars"
-  },
-
-  {
-    "departure_date": "2023-10-19",
+    "comeback_date": "2023-10-21",
     "reserved_place": 4,
     "spaceship": "Le SpaceVoyager 2",
     "planet": "Saturne"
