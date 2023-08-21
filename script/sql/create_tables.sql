@@ -62,18 +62,21 @@ CREATE TABLE web.spaceship (
 -- table qui contient les vols aller
 CREATE TABLE web.departure (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    departure_date DATE NOT NULL,
+    departure_date TEXT NOT NULL,
     reserved_place INT NOT NULL,
-    spaceship_id int NOT NULL REFERENCES web.spaceship(id)
+    spaceship_id int NOT NULL REFERENCES web.spaceship(id),
+    planet_id int NOT NULL REFERENCES web.planet(id)
+
 );
 
 -- table qui contient les vols retour
 CREATE TABLE web.comeback (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    comeback_date DATE NOT NULL,
+    comeback_date TEXT NOT NULL,
     reserved_place INT NOT NULL,
-    spaceship_id int NOT NULL REFERENCES web.spaceship(id)
-);
+    spaceship_id int NOT NULL REFERENCES web.spaceship(id),
+    planet_id int NOT NULL REFERENCES web.planet(id)
+); 
 
 -- table pour gérer les utilisateurs de mon application web
 CREATE TABLE administration.user (
@@ -88,13 +91,14 @@ CREATE TABLE administration.user (
 -- table qui contient les réservations
 CREATE TABLE web.booking (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    nbparticipants int NOT NULL UNIQUE,
+    nbparticipants int NOT NULL,
     total_price int NOT NULL,
     hostel_id int NOT NULL REFERENCES web.hostel(id),
     room_id int NOT NULL REFERENCES web.room(id),
-    planet_id int NOT NULL REFERENCES web.planet(id),
     departure_id int NOT NULL REFERENCES web.departure(id),
-    comeback_id int NOT NULL REFERENCES web.comeback(id)
+    comeback_id int NOT NULL REFERENCES web.comeback(id),
+    user_id int NOT NULL REFERENCES administration.user(id),
+    created_at timestamptz DEFAULT current_timestamp
 
 );
 

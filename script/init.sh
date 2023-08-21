@@ -23,4 +23,4 @@ psql -f ./sql/create_tables.sql
 ## ajout des fonctions (TO DO)
 
 ## import des données
-## node script/js/importData.js 
+node ./js/importData.js 
