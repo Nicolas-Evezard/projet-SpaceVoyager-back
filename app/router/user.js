@@ -6,6 +6,16 @@ const router = express.Router();
 // Import du controller
 const { userController } = require("../controller");
 
+
+/**
+ * POST /user
+ * @summary Post one user
+ * @tags User
+ * @return {[User]} 200 - success response - application/json
+ * @return {ApiError} 400 - Bad request response - application/json
+ */
+router.post("/", userController.register);
+
 /**
  * GET /user
  * @summary Get one user
@@ -16,14 +26,6 @@ const { userController } = require("../controller");
  */
 router.get("/:id", userController.getOne);
 
-/**
- * POST /user
- * @summary Post one user
- * @tags User
- * @return {[User]} 200 - success response - application/json
- * @return {ApiError} 400 - Bad request response - application/json
- */
-router.post("/", userController.register);
 
 /**
  * PATCH /user
