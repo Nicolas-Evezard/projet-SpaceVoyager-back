@@ -206,6 +206,13 @@ async function importDeparture() {
   const response = await client.query(sqlQuery, values);
   departureDB = response.rows;
 
+  for (element of departureDB) {
+    const date = new Date(element.departure_date).toLocaleDateString();
+    const [day, month, year] = date.split("/");
+    const newDateStr = `${year}-${month}-${day}`;
+    element.departure_date = newDateStr;
+  }
+
   console.log("departures importés avec succès !");
 }
 
@@ -247,6 +254,13 @@ async function importComeback() {
 
   const response = await client.query(sqlQuery, values);
   comebackDB = response.rows;
+
+  for (element of comebackDB) {
+    const date = new Date(element.comeback_date).toLocaleDateString();
+    const [day, month, year] = date.split("/");
+    const newDateStr = `${year}-${month}-${day}`;
+    element.comeback_date = newDateStr;
+  }
 
   console.log("comebacks importés avec succès !");
 }
@@ -307,8 +321,6 @@ async function importBooking() {
 
     // je récupère le room_id du booking que je veux insérer
     const roomId = roomDB.find((room) => element.room == room.rank).id;
-
-    console.log(departureDB);
 
     // je récupère le departure_id du booking que je veux insérer
     const departureId = departureDB.find(

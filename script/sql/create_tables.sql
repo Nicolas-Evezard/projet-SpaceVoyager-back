@@ -21,8 +21,8 @@ GRANT EXECUTE ON FUNCTIONS TO space_group_web;
 CREATE TABLE web.planet (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text NOT NULL UNIQUE,
-    distance int NOT NULL,
-    distance_light_year int NOT NULL,
+    distance bigint NOT NULL,
+    distance_light_year bigint NOT NULL,
     content text NOT NULL,
     radius int NOT NULL,
     temp_min int NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE web.spaceship (
 -- table qui contient les vols aller
 CREATE TABLE web.departure (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    departure_date TEXT NOT NULL,
+    departure_date DATE NOT NULL,
     reserved_place INT NOT NULL,
     spaceship_id int NOT NULL REFERENCES web.spaceship(id),
     planet_id int NOT NULL REFERENCES web.planet(id)
@@ -72,7 +72,7 @@ CREATE TABLE web.departure (
 -- table qui contient les vols retour
 CREATE TABLE web.comeback (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    comeback_date TEXT NOT NULL,
+    comeback_date DATE NOT NULL,
     reserved_place INT NOT NULL,
     spaceship_id int NOT NULL REFERENCES web.spaceship(id),
     planet_id int NOT NULL REFERENCES web.planet(id)
