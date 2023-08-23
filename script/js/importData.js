@@ -208,6 +208,7 @@ async function importDeparture() {
 
   for (element of departureDB) {
     const date = new Date(element.departure_date).toLocaleDateString();
+    console.log(date);
     const [day, month, year] = date.split("/");
     const newDateStr = `${year}-${month}-${day}`;
     element.departure_date = newDateStr;
