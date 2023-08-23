@@ -53,3 +53,40 @@ FROM administration.user
 -- Filtre en fonction du user_id
 WHERE administration.user.id = userID
 $$ LANGUAGE sql SECURITY DEFINER;
+
+
+
+-- fonction qui met à jour un utilisateur
+CREATE OR REPLACE FUNCTION web.update_user(u json) RETURNS administration.user AS $$
+DECLARE
+    user_db administration.user;
+BEGIN
+    -- je récupère un user en BDD par son id
+    SELECT * 
+    INTO user_db
+    FROM administration.user WHERE id=(u->>'id')::int;
+
+    IF u->>'firstname' IS NOT NULL
+    THEN 
+    user_db.firstname = u->>'firstname'
+    END IF;
+
+     IF u->>'lastname' IS NOT NULL
+    THEN 
+    user_db.lastname = u->>'lastname'
+    END IF;
+
+    IF u->>'mail' IS NOT NULL
+    THEN 
+    user_db.mail = u->>'mail'
+    END IF;
+
+
+    UPDATE administration.user
+    SET firstname = user_db.firstname, lastname = user_db.lastname, mail = user_db.mail
+    WHERE id = (u->> 'id')::int;
+
+    -- plpgsql nous oblige à utiliser le mot RETURN pour retourner la valeur
+    RETURN user_db;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;;

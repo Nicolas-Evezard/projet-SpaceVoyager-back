@@ -53,7 +53,31 @@ const userDatamapper = {
         }
         // I return the result of the potential error
         return { error, result };
+    },
+
+    async modify(userInfo){
+        const sqlQuery = `
+        SELECT * FROM web.update_user($1)
+        `
+        const values = [userInfo];
+        let result;
+        let error;
+        try {
+          const response = await client.query(sqlQuery, values);
+
+          result = response.rows;
+
+          debug(result)
+      }
+      catch (err) {
+          debug(err);
+
+          // I create a new error 500
+          error = new APIError("Internal error server", 500);
+      }
+      // I return the result of the potential error
+      return { error, result };
     }
-};
+  };
 
 module.exports = userDatamapper;
