@@ -15,7 +15,7 @@ const planetDatamapper = {
       // je teste pour savoir si au moins une ligne a été retournée
       if (response.rows.length == 0) {
         // aucune catégorie n'a été trouvée
-        error = new APIError("Aucune catégorie n'a été trouvée", 404);
+        error = new APIError("Aucune planète n'a été trouvée", 404);
       } else {
         // je place la réponse dans result
         result = response.rows[0];
@@ -42,7 +42,7 @@ const planetDatamapper = {
       // je teste pour savoir si au moins une ligne a été retournée
       if (response.rows.length == 0) {
         // aucune catégorie n'a été trouvée
-        error = new APIError("Aucune catégorie n'a été trouvée", 404);
+        error = new APIError("Aucune planète n'a été trouvée", 404);
       } else {
         // je place la réponse dans result
         result = response.rows[0];
