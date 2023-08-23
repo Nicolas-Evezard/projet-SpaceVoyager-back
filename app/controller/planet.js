@@ -3,7 +3,7 @@ const debug = require("debug")("controller");
 
 const planetController = {
   /**
-   * Récupère et retourne l'ensemble des catégories
+   * Récupère et retourne l'ensemble des planètes
    * @param {*} res
    * @param {*} next
    */
@@ -19,7 +19,7 @@ const planetController = {
   },
 
   /**
-   * Récupère et retourne l'ensemble des catégories
+   * Récupère et retourne une planète
    * @param {*} res
    * @param {*} next
    */
