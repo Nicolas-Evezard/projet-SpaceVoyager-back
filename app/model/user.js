@@ -3,9 +3,8 @@ const debug = require("debug")("model"); // ("model") est le namespace utilisé 
 const APIError = require("../service/APIError");
 
 const userDatamapper = {
-    async getUserById(userId) {
+    async getOne(userId) {
         // I prepare my request SQL
-
         const sqlQuery = `
         SELECT * FROM web.get_one_user($1)
         `

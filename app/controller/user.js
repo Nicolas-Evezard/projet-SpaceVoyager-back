@@ -4,15 +4,15 @@ const debug = require("debug")("controller");
 const userController = {
   
   async register(req, res, next) {},
-
-    /**
+  
+  /**
    * Méthode pour récupérer un user par son id
    * @param {*} req
    * @param {*} res
    * @param {*} next
    */
   async getOne(req, res, next) {
-        const { error, result } = await userDatamapper.getUserById(req.params.id);
+        const { error, result } = await userDatamapper.getOne(req.params.id);
 
         if (error) {
           next(error);
