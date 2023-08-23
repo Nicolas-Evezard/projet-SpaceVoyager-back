@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION web.search_available_planet(person int, date_dp date, date_cb date) RETURNS SETOF web.planet AS $$
+CREATE OR REPLACE FUNCTION web.search_available_planet(date_dp date, date_cb date, person int) RETURNS SETOF web.planet AS $$
 SELECT *
     FROM web.planet
      WHERE id IN (
@@ -76,7 +76,7 @@ ARRAY(
                         JOIN web.planet ON planet.id = hostel.planet_id
                         WHERE interval BETWEEN date_dp AND date_cb
                         GROUP by interval, room_id, planet.name, booking_calendar.hostel_id
-                        -- 1 etant le nombre de participant indiqué par le user
+                        -- person etant le nombre de participant indiqué par le user
                         HAVING SUM(booking_calendar.nbparticipants)+ person > room.max_place
                         ORDER BY interval, room_id, planet.name, booking_calendar.hostel_id),
 
@@ -93,3 +93,113 @@ ARRAY(
 FROM web.hostel
 WHERE planet_id = (SELECT id FROM web.planet WHERE name = planet_name)
 $$ LANGUAGE sql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION web.delete_booking(id_booking int) RETURNS boolean AS $$
+DECLARE 
+    departure_db_id integer;
+    comeback_db_id integer;
+    person integer;
+	delete_result int;
+BEGIN
+    SELECT departure_id, comeback_id, nbparticipants
+    INTO departure_db_id, comeback_db_id, person
+    FROM web.booking
+    WHERE id = id_booking;
+
+    UPDATE web.departure
+    SET reserved_place = reserved_place - person
+    WHERE id = departure_db_id;
+
+    UPDATE web.comeback
+    SET reserved_place = reserved_place - person
+    WHERE id = comeback_db_id;
+
+    DELETE FROM web.booking WHERE id = id_booking
+    RETURNING id INTO delete_result;
+	IF delete_result is null
+	THEN
+	RETURN false;
+	ELSE
+	RETURN true;
+	END IF;
+END; 
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+
+-- je crée un fonction qui va me permettre de créer une reservation
+CREATE OR REPLACE FUNCTION web.insert_booking(b json) RETURNS web.booking AS $$
+DECLARE 
+    comeback_db_id integer;
+    departure_db_id integer;
+    spaceship_db_id integer;
+    creating_booking web.booking;
+BEGIN
+
+    SELECT id
+    INTO spaceship_db_id
+    FROM web.spaceship WHERE name ='Le SpaceVoyager 2';
+
+    SELECT id
+    INTO departure_db_id
+    FROM web.departure WHERE planet_id=(b->>'planet_id')::int AND departure_date=(b->>'dp_date')::date;
+
+    -- SI l'id est nul, alors j'insère une ligne dans departure, où departure_date = cd_date et planet_id = planet_id
+    IF departure_db_id is null
+    THEN 
+        INSERT INTO web.departure
+        (departure_date, reserved_place, spaceship_id, planet_id)
+        VALUES 
+        (
+            (b->>'dp_date')::date,
+            (b->>'person')::int,
+            spaceship_db_id,
+            (b->>'planet_id')::int
+        )
+        RETURNING id INTO departure_db_id;
+    ELSE
+        UPDATE web.departure
+        SET reserved_place = reserved_place + (b->>'person')::int
+        WHERE id = departure_db_id;
+    END IF;    
+
+    SELECT id
+    INTO comeback_db_id
+    FROM web.comeback WHERE planet_id=(b->>'planet_id')::int AND comeback_date=(b->>'cb_date')::date;
+
+    -- SI l'id est nul, alors j'insère une ligne dans comeback, où comeback_date = cd_date et planet_id = planet_id
+    IF comeback_db_id is null
+    THEN 
+        INSERT INTO web.comeback
+        (comeback_date, reserved_place, spaceship_id, planet_id)
+        VALUES 
+        (
+            (b->>'cb_date')::date,
+            (b->>'person')::int,
+            spaceship_db_id,
+            (b->>'planet_id')::int
+        )
+        RETURNING id INTO comeback_db_id;
+    ELSE
+        UPDATE web.comeback
+        SET reserved_place = reserved_place + (b->>'person')::int
+        WHERE id = comeback_db_id;    
+    END IF;
+    
+	INSERT INTO web.booking
+	(nbparticipants,total_price,hostel_id,room_id,departure_id, comeback_id, user_id)
+	VALUES
+	(
+		(b->> 'person')::int,
+		(b->> 'total_price')::int,
+		(b->>'hostel_id')::int,
+        (b->>'room_id')::int,
+        departure_db_id,
+        comeback_db_id,
+        (b->>'user_id')::int
+	)
+    RETURNING * INTO creating_booking;
+	-- je retourne la ligne insérée
+	RETURN creating_booking;
+END; 
+
+$$ LANGUAGE plpgsql SECURITY DEFINER;
