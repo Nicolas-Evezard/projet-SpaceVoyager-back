@@ -1,0 +1,27 @@
+### Ajout d'un booking
+
+POST http://localhost:3000/booking
+content-type: application/json
+
+{
+    "person":1,
+    "total_price":1000,
+    "hostel_id":4,
+    "room_id":8,
+    "dp_date":"2023-10-13",
+    "cb_date":"2023-10-20",
+    "planet_id":4,
+    "user_id":1   
+}
+
+### Ajout d'un booking
+
+DELETE http://localhost:3000/booking/13
+
+### Search d'une planete
+
+GET http://localhost:3000/booking/search?departureDate=2023-09-11&comebackDate=2023-09-12
+
+### Search des hotels
+
+GET http://localhost:3000/booking/search?departureDate=2023-09-11&comebackDate=2023-09-12&person=2&planet=Saturne

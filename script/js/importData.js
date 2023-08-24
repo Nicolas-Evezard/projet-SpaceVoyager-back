@@ -207,7 +207,7 @@ async function importDeparture() {
   departureDB = response.rows;
 
   for (element of departureDB) {
-    const date = new Date(element.departure_date).toLocaleDateString();
+    const date = new Date(element.departure_date).toLocaleDateString("fr-Fr");
     const [day, month, year] = date.split("/");
     const newDateStr = `${year}-${month}-${day}`;
     element.departure_date = newDateStr;
@@ -256,7 +256,7 @@ async function importComeback() {
   comebackDB = response.rows;
 
   for (element of comebackDB) {
-    const date = new Date(element.comeback_date).toLocaleDateString();
+    const date = new Date(element.comeback_date).toLocaleDateString("fr-Fr");
     const [day, month, year] = date.split("/");
     const newDateStr = `${year}-${month}-${day}`;
     element.comeback_date = newDateStr;
