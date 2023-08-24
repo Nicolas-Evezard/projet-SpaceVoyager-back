@@ -15,7 +15,7 @@ const userController = {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       // J'utilise le spread operator pour créer un nouvel objet password qui prend en compte les propriété de l'objet userData
-      const { error, result } = await userDatamapper.addUser({...userData, password: hashedPassword,});
+      const { error, result } = await userDatamapper.addOne({...userData, password: hashedPassword,});
 
       if (error) {
         // Si j'ai une erreur => next(error)
@@ -54,13 +54,13 @@ const userController = {
    * @param {*} res
    * @param {*} next
    */
-  async modify(req, res, next) {
+  async modifyOne(req, res, next) {
     const user = req.body;
     user.id = req.params.id;
     const {
       error,
       result
-    } = await userDatamapper.modify(user);
+    } = await userDatamapper.modifyOne(user);
     if (error) {
       // si j'ai une erreur => next(error)
       next(error);
@@ -77,11 +77,11 @@ const userController = {
    * @param {*} res
    * @param {*} next
    */
-  async delete(req, res, next) {
+  async deleteOne(req, res, next) {
     const {
       error,
       result
-    } = await userDatamapper.delete();
+    } = await userDatamapper.deleteOne();
     if (error) {
       // si j'ai une erreur => next(error)
       next(error);

@@ -5,7 +5,7 @@ const APIError = require("../service/APIError");
 
 const userDatamapper = {
 
-    async addUser(user) {
+    async addOne(user) {
         const sqlQuery = `
         SELECT * FROM web.insert_user($1)
         `;
@@ -28,9 +28,9 @@ const userDatamapper = {
 
         // je retourne le résultat et l'erreur éventuelle
         return { error, result };
-    }
-};
-    async delete() {
+    },
+
+    async deleteOne() {
         const sqlQuery = `SELECT * FROM web.delete_user($1);`;
         const values = [id];
         let result;
@@ -135,6 +135,6 @@ const userDatamapper = {
       // je retourne le résultat et l'erreur éventuelle
       return { error, result };
   },
-  };
+};
 
 module.exports = userDatamapper;
