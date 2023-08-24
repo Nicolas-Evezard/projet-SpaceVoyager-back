@@ -35,7 +35,7 @@ router.get("/:id", userController.getOne);
  * @return {[User]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.patch("/:id", userController.modify);
+router.patch("/:id", userController.modifyOne);
 
 
 //! CHECK IF WE NEED TO PUT VALIDATIONSERVICE INTO ROAD DELETE
@@ -47,7 +47,7 @@ router.patch("/:id", userController.modify);
  * @return {[Delete]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.delete("/:id", userController.delete);
+router.delete("/:id", userController.deleteOne);
 
 
 
