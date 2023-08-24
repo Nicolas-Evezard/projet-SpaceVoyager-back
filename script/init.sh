@@ -20,7 +20,5 @@ export PGDATABASE=spacevoyager
 
 psql -f ./sql/create_tables.sql
 
-## ajout des fonctions (TO DO)
-
 ## import des données
 node ./js/importData.js 

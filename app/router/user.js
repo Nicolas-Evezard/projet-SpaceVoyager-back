@@ -6,15 +6,6 @@ const router = express.Router();
 // Import du controller
 const { userController } = require("../controller");
 
-/**
- * GET /user
- * @summary Get one user
- * @tags User
- * @param {number} id.path.required - user identifier
- * @return {[User]} 200 - success response - application/json
- * @return {ApiError} 400 - Bad request response - application/json
- */
-router.get("/:id", userController.getOne);
 
 /**
  * POST /user
@@ -26,6 +17,17 @@ router.get("/:id", userController.getOne);
 router.post("/", userController.register);
 
 /**
+ * GET /user
+ * @summary Get one user
+ * @tags User
+ * @param {number} id.path.required - user identifier
+ * @return {[User]} 200 - success response - application/json
+ * @return {ApiError} 400 - Bad request response - application/json
+ */
+router.get("/:id", userController.getOne);
+
+
+/**
  * PATCH /user
  * @summary Patch one user
  * @tags User
@@ -33,8 +35,10 @@ router.post("/", userController.register);
  * @return {[User]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.patch("/:id", userController.modify);
+router.patch("/:id", userController.modifyOne);
 
+
+//! CHECK IF WE NEED TO PUT VALIDATIONSERVICE INTO ROAD DELETE
 /**
  * DELETE /user
  * @summary Delete one user
@@ -43,7 +47,9 @@ router.patch("/:id", userController.modify);
  * @return {[Delete]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.delete("/:id", userController.delete);
+router.delete("/:id", userController.deleteOne);
+
+
 
 /**
  * POST /login

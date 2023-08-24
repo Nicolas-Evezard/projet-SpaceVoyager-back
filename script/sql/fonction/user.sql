@@ -1,4 +1,5 @@
 CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS administration.user AS $$
+
     INSERT INTO administration.user
     (firstname, lastname, mail, password, role)
     VALUES
