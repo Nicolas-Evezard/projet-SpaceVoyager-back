@@ -1,3 +1,36 @@
+CREATE FUNCTION web.insert_user(u json) RETURNS administration.user AS $$
+    INSERT INTO administration.user
+    (firstname, lastname, mail, password, role)
+    VALUES
+    (
+        u->>'firstname',
+        u->>'lastname',
+        u->>'mail',
+        u->>'password',
+        u->>'role'
+    )
+    -- Je retourne la ligne insérée
+    RETURNING *;
+    $$ LANGUAGE sql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION web.delete_user(u json) RETURNS boolean AS $$
+DECLARE
+    user_id bigint;
+BEGIN
+    SELECT id INTO user_id
+    FROM administration.user
+    WHERE id = u->>'user_id' AND password = u->>'password';
+
+    IF FOUND THEN
+        DELETE FROM administration.user
+        WHERE id = user_id;
+        RETURN true;
+    ELSE
+        RETURN false;
+    END IF;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- this function returns a user by his id and his reservations
 CREATE OR REPLACE FUNCTION web.get_one_user(userID int)
 RETURNS TABLE (id int, firstname text, lastname text , mail text, password text, role text, reservation json[]) AS $$
@@ -35,7 +68,6 @@ FROM administration.user
 -- Filtre en fonction du user_id
 WHERE administration.user.id = userID
 $$ LANGUAGE sql SECURITY DEFINER;
-
 
 -- fonction qui met à jour un utilisateur
 CREATE OR REPLACE FUNCTION web.update_user(u json) RETURNS administration.user AS $$
@@ -77,21 +109,3 @@ CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS
 	WHERE mail=u->>'mail' AND password=u->>'password';
 
 $$ LANGUAGE sql SECURITY DEFINER;
-
-CREATE OR REPLACE FUNCTION web.delete_user(u json) RETURNS boolean AS $$
-DECLARE
-    user_id bigint;
-BEGIN
-    SELECT id INTO user_id
-    FROM administration.user
-    WHERE id = u->>'user_id' AND password = u->>'password';
-
-    IF FOUND THEN
-        DELETE FROM administration.user
-        WHERE id = user_id;
-        RETURN true;
-    ELSE
-        RETURN false;
-    END IF;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
