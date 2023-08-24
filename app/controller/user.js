@@ -140,7 +140,12 @@ const userController = {
           }, process.env.JWT_SECRET);
 
           // je retourne le token
-          res.json(token);
+          res.json({
+            logged: true,
+            id: req.session.user.id,
+            firstname: req.session.user.firstname,
+            token: token
+          });
         } else {
           // le couple email/mot de passe est incorrect
           const err = new APIError("Mot de passe ou mail incorrect", 400);
