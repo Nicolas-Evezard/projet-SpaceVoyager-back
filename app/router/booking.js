@@ -17,16 +17,6 @@ const { bookingController } = require("../controller");
 router.get("/search", bookingController.search);
 
 /**
- * POST /booking
- * @summary Create a booking
- * @tags Booking
- * @param {Booking} request.body.required - Booking info
- * @return {Booking} 200 - success response - application/json
- * @return {ApiError} 400 - Bad request response - application/json
- */
-router.post("/", bookingController.create);
-
-/**
  * DELETE /booking/:id
  * @summary Delete a booking
  * @tags Booking
@@ -35,5 +25,15 @@ router.post("/", bookingController.create);
  * @return {ApiError} 400 - Bad request response - application/json
  */
 router.delete("/:id", bookingController.delete);
+
+/**
+ * POST /booking
+ * @summary Create a booking
+ * @tags Booking
+ * @param {Booking} request.body.required - Booking info
+ * @return {Booking} 200 - success response - application/json
+ * @return {ApiError} 400 - Bad request response - application/json
+ */
+router.post("/", bookingController.create);
 
 module.exports = router;
