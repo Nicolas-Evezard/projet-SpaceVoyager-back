@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION web.search_available_planet(date_dp date, date_cb date, person int) RETURNS SETOF web.planet AS $$
+CREATE OR REPLACE FUNCTION web.search_available_planet(person int, date_dp date, date_cb date) RETURNS SETOF web.planet AS $$
 SELECT *
     FROM web.planet
      WHERE id IN (
