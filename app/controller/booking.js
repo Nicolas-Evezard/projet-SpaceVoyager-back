@@ -1,6 +1,6 @@
 const { bookingDatamapper } = require("../model");
 const debug = require("debug")("controller");
-const errorHandler = require("../service/errorHandler");
+const APIError = require("../service/APIError");
 
 const bookingController = {
   /**
@@ -48,7 +48,8 @@ const bookingController = {
         res.json(result);
       }
     } else {
-      errorHandler.notFound();
+      const err = new APIError("Url not found !", 404);
+      next(err);
     }
   },
 

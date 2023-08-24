@@ -18,11 +18,10 @@ content-type: application/json
 
 DELETE http://localhost:3000/booking/13
 
-
 ### Search d'une planete
 
-GET http://localhost:3000/booking/search?departureDate=2023-09-11&comebackDate=2023-09-12&person=2
+GET http://localhost:3000/booking/search?departureDate=2023-09-11&comebackDate=2023-09-12
 
-### Search d'une planete
+### Search des hotels
 
 GET http://localhost:3000/booking/search?departureDate=2023-09-11&comebackDate=2023-09-12&person=2&planet=Saturne

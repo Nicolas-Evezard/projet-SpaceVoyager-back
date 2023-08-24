@@ -17,7 +17,7 @@ const bookingDatamapper = {
       debug(response);
 
       // je teste pour savoir si au moins une ligne a été retournée
-      if (response.rows[0].room.length == 0) {
+      if (response.rows.length == 0) {
         // aucune planet n'est disponible
         error = new APIError("Aucun hôtel n'est disponible", 404);
       } else {
@@ -25,6 +25,7 @@ const bookingDatamapper = {
         result = response.rows;
       }
     } catch (err) {
+      debug(err);
       // je crée une erreur 500
       error = new APIError("Erreur interne au serveur", 500, err);
     }
