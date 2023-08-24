@@ -7,7 +7,7 @@
     "radius": 2439,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://img-4.linternaute.com/aBAUTI_b6lxrlsWCNKEFJCcxOiM=/1500x/smart/4c5d35cc7dc54abd8a1bc54224113fbe/ccmcms-linternaute/34984751.jpg",
+    "img": "mercure.png",
     "price": 550
   },
   {
@@ -18,7 +18,7 @@
     "radius": 6051,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://www.radiofrance.fr/s3/cruiser-production/2020/09/1b15ac11-9918-4e27-9605-8137542f369c/870x489_venus.webp",
+    "img": "venus.png",
     "price": 700
   },
   {
@@ -29,7 +29,7 @@
     "radius": 3389,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://cnes.fr/sites/default/files/styles/large/public/drupal/201607/image/is_mars.jpg?itok=FxNATxBI",
+    "img": "mars.png",
     "price": 680
   },
   {
@@ -40,7 +40,7 @@
     "radius": 69911,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://www.asc-csa.gc.ca/images/astronomie/fiches-information/planetes.jpg",
+    "img": "jupiter.png",
     "price": 1400
   },
   {
@@ -51,7 +51,7 @@
     "radius": 58232,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://cdn.pixabay.com/photo/2012/11/28/10/54/planet-67672_960_720.jpg",
+    "img": "saturne.png",
     "price": 1800
   },
   {
@@ -62,7 +62,7 @@
     "radius": 25362,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://img-4.linternaute.com/myUqCVMaqw8COSZ2Gw-Jkl84pmI=/1500x/smart/0a719ec888914c3c8b5c091451f21c19/ccmcms-linternaute/35090607.jpg",
+    "img": "uranus.png",
     "price": 700
   },
   {
@@ -73,7 +73,7 @@
     "radius": 24622,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/0/06/Neptune.jpg",
+    "img": "neptune.png",
     "price": 790
   }
 ]

@@ -1,4 +1,3 @@
-
 CREATE FUNCTION web.insert_user(u json) RETURNS administration.user AS $$
     INSERT INTO administration.user
     (firstname, lastname, mail, password, role)
@@ -82,17 +81,17 @@ BEGIN
 
     IF u->>'firstname' IS NOT NULL
     THEN 
-    user_db.firstname = u->>'firstname'
+    user_db.firstname = u->>'firstname';
     END IF;
 
-     IF u->>'lastname' IS NOT NULL
+    IF u->>'lastname' IS NOT NULL
     THEN 
-    user_db.lastname = u->>'lastname'
+    user_db.lastname = u->>'lastname';
     END IF;
 
     IF u->>'mail' IS NOT NULL
     THEN 
-    user_db.mail = u->>'mail'
+    user_db.mail = u->>'mail';
     END IF;
 
     UPDATE administration.user
@@ -102,7 +101,7 @@ BEGIN
     -- plpgsql nous oblige à utiliser le mot RETURN pour retourner la valeur
     RETURN user_db;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS $$
 	SELECT *
