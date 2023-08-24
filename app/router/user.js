@@ -35,6 +35,8 @@ router.post("/", userController.register);
  */
 router.patch("/:id", userController.modify);
 
+
+//! CHECK IF WE NEED TO PUT VALIDATIONSERVICE INTO ROAD DELETE
 /**
  * DELETE /user
  * @summary Delete one user
@@ -44,6 +46,8 @@ router.patch("/:id", userController.modify);
  * @return {ApiError} 400 - Bad request response - application/json
  */
 router.delete("/:id", userController.delete);
+
+
 
 /**
  * POST /login

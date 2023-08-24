@@ -2,6 +2,7 @@ const client = require("../service/dbPool");
 const debug = require("debug")("model"); // ("model") est le namespace utilisé dans ce fichier
 const APIError = require("../service/APIError");
 
+
 const userDatamapper = {
     async delete() {
         const sqlQuery = `SELECT * FROM web.delete_user($1);`;
@@ -77,7 +78,37 @@ const userDatamapper = {
       }
       // I return the result of the potential error
       return { error, result };
-    }
+    },
+
+    async checkUser(user) {
+      // je prépare ma requête SQL
+      const sqlQuery = `
+          SELECT * FROM web.check_user($1);
+      `;
+      const values = [user];
+
+      let result;
+      let error;
+
+      try {
+          // j'envoie ma requête à ma BDD
+          const response = await client.query(sqlQuery,values);
+
+          // je place la réponse dans result
+          result = response.rows[0];
+          console.log(result)
+        
+          debug(result);
+      }
+      catch (err) {
+          debug(err);
+          // je crèe une erreur 500
+          error = new APIError("Erreur interne au serveur", 500);
+      }
+
+      // je retourne le résultat et l'erreur éventuelle
+      return { error, result };
+  },
   };
 
 module.exports = userDatamapper;

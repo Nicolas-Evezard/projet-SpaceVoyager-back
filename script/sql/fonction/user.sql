@@ -90,3 +90,10 @@ BEGIN
     RETURN user_db;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;;
+
+CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS $$
+	SELECT *
+	FROM administration.user
+	WHERE mail=u->>'mail' AND password=u->>'password';
+
+$$ LANGUAGE sql SECURITY DEFINER;

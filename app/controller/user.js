@@ -1,7 +1,6 @@
-const {
-  userDatamapper
-} = require("../model");
+const { userDatamapper } = require("../model");
 const debug = require("debug")("controller");
+const jwt = require('jsonwebtoken');
 
 const userController = {
 
@@ -69,7 +68,33 @@ const userController = {
     }
   },
 
-  async login(req, res, next) {},
+  async login(req, res, next) {
+    const { error, result } = await userDatamapper.checkUser(req.body);
+
+        if (error) {
+            // si j'ai une erreur => next(error)
+            next(error);
+        }
+        else {
+            // si tout va bien
+            if(result.id){
+                // j'enregistre les informations de l'utilisateur dans la session
+                req.session.user = result;
+                delete req.session.user.password;
+                debug(req.session.user);
+
+                // je génère un token à partir des informations de mon utilisateur et du secret
+                const token = jwt.sign({user:req.session.user}, process.env.JWT_SECRET);
+
+                // je retourne le token
+                res.json(token);
+            }
+            else{
+                // le couple email/mot de passe est incorrect
+                res.json(false);
+            }
+        }
+  },
 };
 
 module.exports = userController;
