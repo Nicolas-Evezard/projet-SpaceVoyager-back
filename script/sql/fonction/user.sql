@@ -1,3 +1,19 @@
+
+CREATE FUNCTION web.insert_user(u json) RETURNS administration.user AS $$
+    INSERT INTO administration.user
+    (firstname, lastname, mail, password, role)
+    VALUES
+    (
+        u->>'firstname',
+        u->>'lastname',
+        u->>'mail',
+        u->>'password',
+        u->>'role'
+    )
+    -- Je retourne la ligne insérée
+    RETURNING *;
+    $$ LANGUAGE sql SECURITY DEFINER;
+
 CREATE OR REPLACE FUNCTION web.delete_user(u json) RETURNS boolean AS $$
 DECLARE
     user_id bigint;
@@ -54,8 +70,6 @@ FROM administration.user
 WHERE administration.user.id = userID
 $$ LANGUAGE sql SECURITY DEFINER;
 
-
-
 -- fonction qui met à jour un utilisateur
 CREATE OR REPLACE FUNCTION web.update_user(u json) RETURNS administration.user AS $$
 DECLARE
@@ -80,7 +94,6 @@ BEGIN
     THEN 
     user_db.mail = u->>'mail'
     END IF;
-
 
     UPDATE administration.user
     SET firstname = user_db.firstname, lastname = user_db.lastname, mail = user_db.mail
