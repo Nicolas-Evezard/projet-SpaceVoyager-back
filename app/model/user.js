@@ -2,9 +2,7 @@ const client = require("../service/dbPool");
 const debug = require("debug")("model"); // ("model") est le namespace utilisé dans ce fichier
 const APIError = require("../service/APIError");
 
-
 const userDatamapper = {
-
     async addOne(user) {
         const sqlQuery = `
         SELECT * FROM web.insert_user($1)
@@ -106,34 +104,36 @@ const userDatamapper = {
       return { error, result };
     },
 
-    async checkUser(user) {
-      // je prépare ma requête SQL
-      const sqlQuery = `
+     async checkUser(user) {
+    // je prépare ma requête SQL
+    const sqlQuery = `
           SELECT * FROM web.check_user($1);
       `;
-      const values = [user];
+    const values = [user];
 
-      let result;
-      let error;
+    let result;
+    let error;
 
-      try {
-          // j'envoie ma requête à ma BDD
-          const response = await client.query(sqlQuery,values);
+    try {
+      // j'envoie ma requête à ma BDD
+      const response = await client.query(sqlQuery, values);
+      if (response.rows[0].mail == null) {
+        error = new APIError("Email ou mot de passe incorrect", 400);
+      } else {
+        // je place la réponse dans result
+        result = response.rows[0];
+        console.log(result);
 
-          // je place la réponse dans result
-          result = response.rows[0];
-          console.log(result)
-        
-          debug(result);
+        debug(result);
       }
-      catch (err) {
-          debug(err);
-          // je crèe une erreur 500
-          error = new APIError("Erreur interne au serveur", 500);
-      }
+    } catch (err) {
+      debug(err);
+      // je crèe une erreur 500
+      error = new APIError("COUCOU Erreur interne au serveur", 500);
+    }
 
-      // je retourne le résultat et l'erreur éventuelle
-      return { error, result };
+    // je retourne le résultat et l'erreur éventuelle
+    return { error, result };
   },
 };
 

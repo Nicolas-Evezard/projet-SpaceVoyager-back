@@ -23,4 +23,6 @@ mainRouter.use("/planet", planetRouter);
 // Aiguillage pour les routes préfixées par /user
 mainRouter.use("/user", userRouter);
 
+mainRouter.use(errorHandler.manage);
+
 module.exports = mainRouter;

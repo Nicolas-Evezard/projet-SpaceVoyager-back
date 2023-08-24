@@ -1,12 +1,12 @@
 const { userDatamapper } = require("../model");
 const bcrypt = require("bcrypt");
 const debug = require("debug")("controller");
-const jwt = require('jsonwebtoken');
-
+const jwt = require("jsonwebtoken");
+const APIError = require("../service/APIError");
 const saltRounds = 10;
 
 const userController = {
-
+  
   /**
    * Méthode pour register un user
    * @param {*} req
@@ -20,12 +20,11 @@ const userController = {
         password,
         ...userData
       } = req.body;
-
       // Générer un salt pour le cryptage, là je décide de couper le password en 10
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       // J'utilise le spread operator pour créer un nouvel objet password qui prend en compte les propriété de l'objet userData
-      const {
+        const {
         error,
         result
       } = await userDatamapper.addOne({
@@ -77,6 +76,7 @@ const userController = {
       error,
       result
     } = await userDatamapper.modifyOne(user);
+
     if (error) {
       // si j'ai une erreur => next(error)
       next(error);
@@ -128,7 +128,6 @@ const userController = {
         debug(req.body)
         const match = await bcrypt.compare(req.body.password, result.password);
         if (match) {
-
           // j'enregistre les informations de l'utilisateur dans la session
           req.session.user = result;
           delete req.session.user.password;
@@ -155,7 +154,6 @@ const userController = {
         // le couple email/mot de passe est incorrect
         const err = new APIError("Mot de passe ou mail incorrect", 400);
         next(err);
-
       }
     }
   },
