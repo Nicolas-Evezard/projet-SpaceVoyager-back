@@ -82,7 +82,7 @@ const userDatamapper = {
         return { error, result };
     },
 
-    async modify(userInfo){
+    async modifyOne(userInfo){
         const sqlQuery = `
         SELECT * FROM web.update_user($1)
         `
