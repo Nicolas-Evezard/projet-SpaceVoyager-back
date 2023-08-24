@@ -1,21 +1,3 @@
-CREATE OR REPLACE FUNCTION web.delete_user(u json) RETURNS boolean AS $$
-DECLARE
-    user_id bigint;
-BEGIN
-    SELECT id INTO user_id
-    FROM administration.user
-    WHERE id = u->>'user_id' AND password = u->>'password';
-
-    IF FOUND THEN
-        DELETE FROM administration.user
-        WHERE id = user_id;
-        RETURN true;
-    ELSE
-        RETURN false;
-    END IF;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
 -- this function returns a user by his id and his reservations
 CREATE OR REPLACE FUNCTION web.get_one_user(userID int)
 RETURNS TABLE (id int, firstname text, lastname text , mail text, password text, role text, reservation json[]) AS $$
@@ -55,7 +37,6 @@ WHERE administration.user.id = userID
 $$ LANGUAGE sql SECURITY DEFINER;
 
 
-
 -- fonction qui met à jour un utilisateur
 CREATE OR REPLACE FUNCTION web.update_user(u json) RETURNS administration.user AS $$
 DECLARE
@@ -68,19 +49,18 @@ BEGIN
 
     IF u->>'firstname' IS NOT NULL
     THEN 
-    user_db.firstname = u->>'firstname'
+    user_db.firstname = u->>'firstname';
     END IF;
 
-     IF u->>'lastname' IS NOT NULL
+    IF u->>'lastname' IS NOT NULL
     THEN 
-    user_db.lastname = u->>'lastname'
+    user_db.lastname = u->>'lastname';
     END IF;
 
     IF u->>'mail' IS NOT NULL
     THEN 
-    user_db.mail = u->>'mail'
+    user_db.mail = u->>'mail';
     END IF;
-
 
     UPDATE administration.user
     SET firstname = user_db.firstname, lastname = user_db.lastname, mail = user_db.mail
@@ -89,7 +69,7 @@ BEGIN
     -- plpgsql nous oblige à utiliser le mot RETURN pour retourner la valeur
     RETURN user_db;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS $$
 	SELECT *
@@ -97,3 +77,21 @@ CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS
 	WHERE mail=u->>'mail' AND password=u->>'password';
 
 $$ LANGUAGE sql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION web.delete_user(u json) RETURNS boolean AS $$
+DECLARE
+    user_id bigint;
+BEGIN
+    SELECT id INTO user_id
+    FROM administration.user
+    WHERE id = u->>'user_id' AND password = u->>'password';
+
+    IF FOUND THEN
+        DELETE FROM administration.user
+        WHERE id = user_id;
+        RETURN true;
+    ELSE
+        RETURN false;
+    END IF;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
