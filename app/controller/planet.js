@@ -2,34 +2,33 @@ const { planetDatamapper } = require("../model");
 const debug = require("debug")("controller");
 
 const planetController = {
+
   /**
-   * Récupère et retourne l'ensemble des planètes
+   * Method to get all planets
    * @param {*} res
    * @param {*} next
    */
-  async getAll(req, res, next) {
+  async getAll(_, res, next) {
     const { error, result } = await planetDatamapper.getAll();
     if (error) {
-      // si j'ai une erreur => next(error)
       next(error);
     } else {
-      // si tout va bien
       res.json(result);
     }
   },
 
   /**
-   * Récupère et retourne une planète
+   * Method to get one planet
+   * @param {*} req
    * @param {*} res
    * @param {*} next
    */
   async getOne(req, res, next) {
-    const { error, result } = await planetDatamapper.getOne(req.params.id);
+    const { id } = req.params;
+    const { error, result } = await planetDatamapper.getOne(id);
     if (error) {
-      // si j'ai une erreur => next(error)
       next(error);
     } else {
-      // si tout va bien
       res.json(result);
     }
   },
