@@ -129,7 +129,8 @@ const userController = {
             {
               user: req.session.user,
             },
-            process.env.JWT_SECRET
+            process.env.JWT_SECRET,
+            { expiresIn: "2 hours" }
           );
 
           // je retourne le token
