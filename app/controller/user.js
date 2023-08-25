@@ -89,7 +89,7 @@ const userController = {
    * @param {*} next
    */
   async deleteOne(req, res, next) {
-    if (req.user.id === req.params.id) {
+    if (req.user.id == req.params.id) {
       const { error, result } = await userDatamapper.deleteOne(req.params.id);
       if (error) {
         // si j'ai une erreur => next(error)
