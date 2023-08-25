@@ -2,10 +2,10 @@
 // sous-entendu, mon URL est préfixée par /user
 const express = require("express");
 const router = express.Router();
+const validationService = require("../service/validation/validationService");
 
 // Import du controller
 const { userController } = require("../controller");
-
 
 /**
  * POST /user
@@ -24,8 +24,7 @@ router.post("/", userController.register);
  * @return {[User]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.get("/:id", userController.getOne);
-
+router.get("/:id", validationService.isConnected, userController.getOne);
 
 /**
  * PATCH /user
@@ -35,8 +34,7 @@ router.get("/:id", userController.getOne);
  * @return {[User]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.patch("/:id", userController.modifyOne);
-
+router.patch("/:id", validationService.isConnected, userController.modifyOne);
 
 //! CHECK IF WE NEED TO PUT VALIDATIONSERVICE INTO ROAD DELETE
 /**
@@ -47,9 +45,7 @@ router.patch("/:id", userController.modifyOne);
  * @return {[Delete]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.delete("/:id", userController.deleteOne);
-
-
+router.delete("/:id", validationService.isConnected, userController.deleteOne);
 
 /**
  * POST /login
