@@ -1,9 +1,6 @@
-// Déclaration du routeur "hostel"
-// sous-entendu, mon URL est préfixée par /hostel
 const express = require("express");
 const router = express.Router();
 
-// Import du controller
 const { hostelController } = require("../controller");
 
 /**
@@ -12,6 +9,8 @@ const { hostelController } = require("../controller");
  * @tags Hostel
  * @return {[Hostel]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Hostels not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.get("/", hostelController.getAll);
 
@@ -22,6 +21,8 @@ router.get("/", hostelController.getAll);
  * @param {number} id.path.required - hostel identifier
  * @return {[Hostel]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Hostel not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.get("/:id", hostelController.getOne);
 
