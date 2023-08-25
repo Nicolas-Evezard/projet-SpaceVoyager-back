@@ -1,51 +1,35 @@
-### Add one user
+### log one user
 POST http://localhost:3000/user
 content-type: application/json
 
 {
-    "person":1,
-    "total_price":1000,
-    "hostel_id":4,
-    "room_id":8,
-    "dp_date":"2023-10-13",
-    "cb_date":"2023-10-20",
-    "planet_id":4,
-    "user_id":1   
+    "mail":"ici le mail du user",
+    "password":"ici le password"
 }
 
 ### Get one user
-GET http://localhost:3000/user
+GET http://localhost:3000/user/1
 
 ### Patch one user
 PATCH http://localhost:3000/user
 content-type: application/json
 
 {
-    "person":1,
-    "total_price":1000,
-    "hostel_id":4,
-    "room_id":8,
-    "dp_date":"2023-10-13",
-    "cb_date":"2023-10-20",
-    "planet_id":4,
-    "user_id":1   
+    "firstname":"le firstname",
+    "lastname":"le lastname",
+    "email":"lenewemail@.com" 
 }
 
-
 ### Delete one user
-DELETE http://localhost:3000/user
+DELETE http://localhost:3000/user/2
 
 ### Post user info to login
 POST http://localhost:3000/user
 content-type: application/json
 
 {
-    "person":1,
-    "total_price":1000,
-    "hostel_id":4,
-    "room_id":8,
-    "dp_date":"2023-10-13",
-    "cb_date":"2023-10-20",
-    "planet_id":4,
-    "user_id":1   
+    "firstname":"le firsname",
+    "lastname":"lelastname",
+    "password":"monpassword",
+    "email":"email", 
 }
