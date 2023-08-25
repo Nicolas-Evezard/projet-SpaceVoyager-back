@@ -19,7 +19,7 @@ const hostelDatamapper = {
       const response = await client.query(sqlQuery);
       result = response.rows;
     } catch (err) {
-      error = new APIError(" Internal server error", 500, err);
+      error = new APIError("Internal server error", 500, err);
     }
     if (result.length == 0) {
       error = new APIError("No hotel found", 404);
