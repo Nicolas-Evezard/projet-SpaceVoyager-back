@@ -18,7 +18,7 @@ const planetDatamapper = {
         error = new APIError("Aucune planète n'a été trouvée", 404);
       } else {
         // je place la réponse dans result
-        result = response.rows[0];
+        result = response.rows;
       }
     } catch (err) {
       // je crèe une erreur 500

@@ -1,0 +1,7 @@
+### Get all hostels
+
+GET http://localhost:3000/hostel/
+
+### Get one hostel
+
+GET http://localhost:3000/hostel/20
