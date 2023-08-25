@@ -1,35 +1,39 @@
 ### log one user
-POST http://localhost:3000/user
+POST http://localhost:3000/user/login
 content-type: application/json
 
 {
-    "mail":"ici le mail du user",
-    "password":"ici le password"
+    "mail":"test2@test.com",
+    "password":"test2"
 }
 
 ### Get one user
-GET http://localhost:3000/user/1
+GET http://localhost:3000/user/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwiZmlyc3RuYW1lIjoidGVzdDIiLCJsYXN0bmFtZSI6InRlc3QyIiwibWFpbCI6InRlc3QyQHRlc3QuY29tIiwicm9sZSI6Im1lbWJlciJ9LCJpYXQiOjE2OTI5Njc5OTB9.ImsPFDaGEg8zC4euxfvyB3tSvMQkcII_7lLJg1pXVrw
+
 
 ### Patch one user
 PATCH http://localhost:3000/user
 content-type: application/json
 
 {
-    "firstname":"le firstname",
-    "lastname":"le lastname",
-    "email":"lenewemail@.com" 
+    "firstname":"test",
+    "lastname":"test",
+    "email":"test@test.com" 
 }
 
 ### Delete one user
-DELETE http://localhost:3000/user/2
+DELETE http://localhost:3000/user/10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwiZmlyc3RuYW1lIjoidGVzdDIiLCJsYXN0bmFtZSI6InRlc3QyIiwibWFpbCI6InRlc3QyQHRlc3QuY29tIiwicm9sZSI6Im1lbWJlciJ9LCJpYXQiOjE2OTI5NjcwNjF9.rSRcEV8ckQG7TaSS_-omTR2E3JUT4DrtzsA5BpPpbSc
 
 ### Post user info to login
 POST http://localhost:3000/user
 content-type: application/json
 
 {
-    "firstname":"le firsname",
-    "lastname":"lelastname",
-    "password":"monpassword",
-    "email":"email", 
+    "firstname":"test2",
+    "lastname":"test2",
+    "password":"test2",
+    "mail":"test2@test.com",
+    "role":"member"
 }

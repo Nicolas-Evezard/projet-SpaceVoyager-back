@@ -14,13 +14,13 @@ CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS administration.user A
     RETURNING *;
     $$ LANGUAGE sql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION web.delete_user(u json) RETURNS boolean AS $$
+CREATE OR REPLACE FUNCTION web.delete_user(id_user int) RETURNS boolean AS $$
 DECLARE
     user_id bigint;
 BEGIN
     SELECT id INTO user_id
     FROM administration.user
-    WHERE id = u->>'user_id' AND password = u->>'password';
+    WHERE id = id_user;
 
     IF FOUND THEN
         DELETE FROM administration.user
@@ -34,13 +34,13 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- this function returns a user by his id and his reservations
 CREATE OR REPLACE FUNCTION web.get_one_user(userID int)
-RETURNS TABLE (id int, firstname text, lastname text , mail text, password text, role text, reservation json[]) AS $$
+RETURNS TABLE (id int, firstname text, lastname text , mail text, reservation json[]) AS $$
     -- Selectionne les champs de la table user et un champ sous forme de tableau, contenant des objets json
-    SELECT administration.user.*, ARRAY( SELECT json_build_object(
-    -- User
-        'user_firstname', administration.user.firstname,
-        'user_lastname', administration.user.lastname,
-        'user_mail', administration.user.mail,
+    SELECT administration.user.id, 
+        administration.user.firstname, 
+        administration.user.lastname, 
+        administration.user.mail 
+	, ARRAY( SELECT json_build_object(
     -- Departure / Comeback
         'departure_date',web.departure.departure_date,
         'comeback_date',web.comeback.comeback_date,
@@ -57,15 +57,18 @@ RETURNS TABLE (id int, firstname text, lastname text , mail text, password text,
         'spaceship_name', web.spaceship.name,
     -- Booking
         'booking_nbparticipants',web.booking.nbparticipants,
-        'booking_total_price',web.booking.total_price))
+        'booking_total_price',web.booking.total_price)
+	FROM administration.user									
+    LEFT JOIN web.booking ON administration.user.id = web.booking.user_id
+    LEFT JOIN web.departure ON web.departure.id = web.booking.departure_id
+    LEFT JOIN web.comeback ON web.comeback.id = web.booking.comeback_id
+    LEFT JOIN web.planet ON web.planet.id = web.departure.planet_id
+    LEFT JOIN web.hostel ON web.hostel.id = web.booking.hostel_id
+    LEFT JOIN web.room ON web.room.id = web.booking.room_id
+    LEFT JOIN web.spaceship ON web.spaceship.id = web.departure.spaceship_id
+    WHERE administration.user.id = userID
+        )
 FROM administration.user
-    JOIN web.booking ON administration.user.id = web.booking.user_id
-    JOIN web.departure ON web.departure.id = web.booking.departure_id
-    JOIN web.comeback ON web.comeback.id = web.booking.comeback_id
-    JOIN web.planet ON web.planet.id = web.departure.planet_id
-    JOIN web.hostel ON web.hostel.id = web.booking.hostel_id
-    JOIN web.room ON web.room.id = web.booking.room_id
-    JOIN web.spaceship ON web.spaceship.id = web.departure.spaceship_id
 -- Filtre en fonction du user_id
 WHERE administration.user.id = userID
 $$ LANGUAGE sql SECURITY DEFINER;
