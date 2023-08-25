@@ -7,7 +7,7 @@ const planetController = {
    * @param {*} res
    * @param {*} next
    */
-  async getAll(_, res, next) {
+  async getAll(req, res, next) {
     const { error, result } = await planetDatamapper.getAll();
     if (error) {
       // si j'ai une erreur => next(error)
@@ -23,7 +23,7 @@ const planetController = {
    * @param {*} res
    * @param {*} next
    */
-  async getOne(_, res, next) {
+  async getOne(req, res, next) {
     const { error, result } = await planetDatamapper.getOne(req.params.id);
     if (error) {
       // si j'ai une erreur => next(error)

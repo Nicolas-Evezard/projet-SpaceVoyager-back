@@ -1,0 +1,7 @@
+### Get all planets
+
+GET http://localhost:3000/planet
+
+### Get one planet
+
+GET http://localhost:3000/planet/1
