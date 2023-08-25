@@ -1,9 +1,6 @@
-// Déclaration du routeur "booking"
-// sous-entendu, mon URL est préfixée par /booking
 const express = require("express");
 const router = express.Router();
 
-// Import du controller
 const { bookingController } = require("../controller");
 
 /**
@@ -13,6 +10,8 @@ const { bookingController } = require("../controller");
  * @param {Booking} request.query.required - Booking info (hotel and room depending on query)
  * @return {[Booking]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Research not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.get("/search", bookingController.search);
 
@@ -23,6 +22,8 @@ router.get("/search", bookingController.search);
  * @param {number} id.path.required - booking identifier
  * @return {Booking} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Booking not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.delete("/:id", bookingController.delete);
 
@@ -33,6 +34,8 @@ router.delete("/:id", bookingController.delete);
  * @param {Booking} request.body.required - Booking info
  * @return {Booking} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Booking not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.post("/", bookingController.create);
 
