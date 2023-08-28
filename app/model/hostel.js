@@ -22,7 +22,7 @@ const hostelDatamapper = {
       error = new APIError("Internal server error", 500, err);
     }
     if (result.length == 0) {
-      error = new APIError("No hotel found", 404);
+      error = new APIError("Hostel not found", 404);
     }
     return { error, result };
   },
@@ -47,7 +47,7 @@ const hostelDatamapper = {
       error = new APIError("Internal server error", 500, err);
     }
     if (result.length === 0 || result[0].id === null) {
-      error = new APIError("No hotel found", 404);
+      error = new APIError("Hostel not found", 404);
     }
     return { error, result };
   },
