@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const validationService = require("../service/validation/validationService");
 
 const { bookingController } = require("../controller");
 
@@ -25,7 +26,7 @@ router.get("/search", bookingController.search);
  * @return {ApiError} 404 - Booking not found
  * @return {ApiError} 500 - Internal server error
  */
-router.delete("/:id", bookingController.delete);
+router.delete("/:id", validationService.isConnected, bookingController.delete);
 
 /**
  * POST /booking
@@ -37,6 +38,6 @@ router.delete("/:id", bookingController.delete);
  * @return {ApiError} 404 - Booking not found
  * @return {ApiError} 500 - Internal server error
  */
-router.post("/", bookingController.create);
+router.post("/", validationService.isConnected, bookingController.create);
 
 module.exports = router;

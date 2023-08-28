@@ -22,7 +22,6 @@ const bookingDatamapper = {
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      debug(response);
       if (response.rows.length == 0) {
         error = new APIError("No hotel available", 404);
       } else {
@@ -75,9 +74,9 @@ const bookingDatamapper = {
    * @returns {500} if an error occured
    * @async
    */
-  async delete(id) {
-    const sqlQuery = `SELECT * FROM web.delete_booking($1)`;
-    const values = [id];
+  async delete(id, user) {
+    const sqlQuery = `SELECT * FROM web.delete_booking($1, $2)`;
+    const values = [id, user];
     let result;
     let error;
     try {

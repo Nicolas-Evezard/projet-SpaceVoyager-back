@@ -94,7 +94,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 -- WHERE planet_id = (SELECT id FROM web.planet WHERE name = planet_name)
 -- $$ LANGUAGE sql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION web.delete_booking(id_booking int) RETURNS boolean AS $$
+CREATE OR REPLACE FUNCTION web.delete_booking(id_booking int, id_user int) RETURNS boolean AS $$
 DECLARE 
     departure_db_id integer;
     comeback_db_id integer;
@@ -104,24 +104,28 @@ BEGIN
     SELECT departure_id, comeback_id, nbparticipants
     INTO departure_db_id, comeback_db_id, person
     FROM web.booking
-    WHERE id = id_booking;
+    WHERE id = id_booking AND user_id = id_user;
+    
+    IF FOUND THEN
+        UPDATE web.departure
+        SET reserved_place = reserved_place - person
+        WHERE id = departure_db_id;
 
-    UPDATE web.departure
-    SET reserved_place = reserved_place - person
-    WHERE id = departure_db_id;
+        UPDATE web.comeback
+        SET reserved_place = reserved_place - person
+        WHERE id = comeback_db_id;
 
-    UPDATE web.comeback
-    SET reserved_place = reserved_place - person
-    WHERE id = comeback_db_id;
-
-    DELETE FROM web.booking WHERE id = id_booking
-    RETURNING id INTO delete_result;
-	IF delete_result is null
-	THEN
-	RETURN false;
-	ELSE
-	RETURN true;
-	END IF;
+        DELETE FROM web.booking WHERE id = id_booking
+        RETURNING id INTO delete_result;
+        IF delete_result is null
+        THEN
+        RETURN false;
+        ELSE
+        RETURN true;
+        END IF;
+    ELSE
+        RETURN false;
+    END IF        
 END; 
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
