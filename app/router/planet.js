@@ -1,9 +1,6 @@
-// Déclaration du routeur "planet"
-// sous-entendu, mon URL est préfixée par /planet
 const express = require("express");
 const router = express.Router();
 
-// Import du controller
 const { planetController } = require("../controller");
 
 /**
@@ -12,6 +9,8 @@ const { planetController } = require("../controller");
  * @tags Planet
  * @return {[Planet]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Planets not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.get("/", planetController.getAll);
 
@@ -22,6 +21,8 @@ router.get("/", planetController.getAll);
  * @param {number} id.path.required - planet identifier
  * @return {Planet} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Planet not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.get("/:id", planetController.getOne);
 

@@ -7,7 +7,7 @@
     "radius": 2439,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "mercure.png",
+    "img": "mercure.jpg",
     "price": 550
   },
   {
@@ -18,7 +18,7 @@
     "radius": 6051,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "venus.png",
+    "img": "venus.jpg",
     "price": 700
   },
   {
@@ -29,7 +29,7 @@
     "radius": 3389,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "mars.png",
+    "img": "mars.jpg",
     "price": 680
   },
   {
@@ -40,7 +40,7 @@
     "radius": 69911,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "jupiter.png",
+    "img": "jupiter.jpg",
     "price": 1400
   },
   {
@@ -51,7 +51,7 @@
     "radius": 58232,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "saturne.png",
+    "img": "saturne.jpg",
     "price": 1800
   },
   {
@@ -62,7 +62,7 @@
     "radius": 25362,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "uranus.png",
+    "img": "uranus.jpg",
     "price": 700
   },
   {
@@ -73,7 +73,7 @@
     "radius": 24622,
     "temp_min": 10,
     "temp_max": 50,
-    "img": "neptune.png",
+    "img": "neptune.jpg",
     "price": 790
   }
 ]

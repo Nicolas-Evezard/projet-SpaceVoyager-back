@@ -3,8 +3,9 @@ const debug = require("debug")("controller");
 const APIError = require("../service/APIError");
 
 const bookingController = {
+  
   /**
-   * Get all booking
+   * Method to get all booking
    * @param {*} req
    * @param {*} res
    * @param {*} next
@@ -24,10 +25,8 @@ const bookingController = {
         req.query.planet
       );
       if (error) {
-        // si j'ai une erreur => next(error)
         next(error);
       } else {
-        // si tout va bien
         res.json(result);
       }
     } else if (
@@ -41,10 +40,8 @@ const bookingController = {
         req.query.comebackDate
       );
       if (error) {
-        // si j'ai une erreur => next(error)
         next(error);
       } else {
-        // si tout va bien
         res.json(result);
       }
     } else {
@@ -54,7 +51,7 @@ const bookingController = {
   },
 
   /**
-   * Deleting a booking
+   * Method to delete a booking
    * @param {*} req
    * @param {*} res
    * @param {*} next
@@ -66,16 +63,14 @@ const bookingController = {
       userId
     );
     if (error) {
-      // si j'ai une erreur => next(error)
       next(error);
     } else {
-      // si tout va bien
       res.json(result);
     }
   },
 
   /**
-   * Create a booking
+   * Method to create a booking
    * @param {*} req
    * @param {*} res
    * @param {*} next
@@ -83,10 +78,8 @@ const bookingController = {
   async create(req, res, next) {
     const { error, result } = await bookingDatamapper.create(req.body);
     if (error) {
-      // si j'ai une erreur => next(error)
       next(error);
     } else {
-      // si tout va bien
       res.json(result);
     }
   },
