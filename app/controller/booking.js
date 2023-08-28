@@ -60,7 +60,11 @@ const bookingController = {
    * @param {*} next
    */
   async delete(req, res, next) {
-    const { error, result } = await bookingDatamapper.delete(req.params.id);
+    const userId = req.user.id;
+    const { error, result } = await bookingDatamapper.delete(
+      req.params.id,
+      userId
+    );
     if (error) {
       // si j'ai une erreur => next(error)
       next(error);

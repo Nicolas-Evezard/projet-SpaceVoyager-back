@@ -14,7 +14,6 @@ const bookingDatamapper = {
 
     try {
       const response = await client.query(sqlQuery, values);
-      debug(response);
 
       // je teste pour savoir si au moins une ligne a été retournée
       if (response.rows.length == 0) {
@@ -69,11 +68,11 @@ const bookingDatamapper = {
     return { error, result };
   },
 
-  async delete(id) {
+  async delete(id, user) {
     // je prépare ma requête SQL
-    const sqlQuery = `SELECT * FROM web.delete_booking($1)`;
+    const sqlQuery = `SELECT * FROM web.delete_booking($1, $2)`;
     // je place les valeurs dans un tableau pour utiliser le système de parameterized query (requête paramétrée)
-    const values = [id];
+    const values = [id, user];
 
     let result;
     let error;

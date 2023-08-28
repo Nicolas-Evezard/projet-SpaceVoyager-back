@@ -2,21 +2,23 @@
 
 POST http://localhost:3000/booking
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwiZmlyc3RuYW1lIjoidGVzdDIiLCJsYXN0bmFtZSI6InRlc3QyIiwibWFpbCI6InRlc3QyQHRlc3QuY29tIiwicm9sZSI6Im1lbWJlciJ9LCJpYXQiOjE2OTMyMDkwNTh9.sD5rKMvdCiRFAgJtqcqXLeutOR9aJDw5Kqxo8951Xyo
 
 {
     "person":1,
     "total_price":1000,
     "hostel_id":4,
     "room_id":8,
-    "dp_date":"2023-10-13",
-    "cb_date":"2023-10-20",
+    "dp_date":"2023-12-13",
+    "cb_date":"2023-12-20",
     "planet_id":4,
-    "user_id":1   
+    "user_id":3   
 }
 
-### Ajout d'un booking
+### Delete d'un booking
 
-DELETE http://localhost:3000/booking/13
+DELETE http://localhost:3000/booking/15
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwiZmlyc3RuYW1lIjoidGVzdDIiLCJsYXN0bmFtZSI6InRlc3QyIiwibWFpbCI6InRlc3QyQHRlc3QuY29tIiwicm9sZSI6Im1lbWJlciJ9LCJpYXQiOjE2OTMyMDkwNTh9.sD5rKMvdCiRFAgJtqcqXLeutOR9aJDw5Kqxo8951Xyo
 
 ### Search d'une planete
 

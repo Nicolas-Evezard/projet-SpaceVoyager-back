@@ -2,6 +2,7 @@
 // sous-entendu, mon URL est préfixée par /booking
 const express = require("express");
 const router = express.Router();
+const validationService = require("../service/validation/validationService");
 
 // Import du controller
 const { bookingController } = require("../controller");
@@ -24,7 +25,7 @@ router.get("/search", bookingController.search);
  * @return {Booking} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.delete("/:id", bookingController.delete);
+router.delete("/:id", validationService.isConnected, bookingController.delete);
 
 /**
  * POST /booking
@@ -34,6 +35,6 @@ router.delete("/:id", bookingController.delete);
  * @return {Booking} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */
-router.post("/", bookingController.create);
+router.post("/", validationService.isConnected, bookingController.create);
 
 module.exports = router;
