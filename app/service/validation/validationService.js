@@ -13,9 +13,7 @@ const validationService = {
 
     if (authorizationInformation.length == 2) {
       const token = authorizationInformation[1];
-
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
       // le token et la session sont ils identiques ?
       if (JSON.stringify(decoded.user)) {
         req.user = decoded.user; // user contient quelque chose, sous-entendu je suis connecté, je peux passer à la suite
@@ -37,6 +35,7 @@ const validationService = {
     //   const error = new APIError("Token invalide", 500);
     //   next(error);
     //!}
+
   },
 };
 
