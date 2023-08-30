@@ -107,6 +107,11 @@ const userController = {
       if (result) {
         const match = await bcrypt.compare(req.body.password, result.password);
         if (match) {
+          delete result.password;
+          delete result.role;
+          delete result.mail;
+          console.log("this is new session");
+          console.log(result);
           const token = jwt.sign(
             {
               user: result,
