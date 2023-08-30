@@ -56,6 +56,7 @@ RETURNS TABLE (id int, firstname text, lastname text , mail text, reservation js
     -- Spaceship
         'spaceship_name', web.spaceship.name,
     -- Booking
+        'booking_id',web.booking.id
         'booking_nbparticipants',web.booking.nbparticipants,
         'booking_total_price',web.booking.total_price)
 	FROM administration.user									
