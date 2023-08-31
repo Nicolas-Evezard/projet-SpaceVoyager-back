@@ -99,7 +99,8 @@ const bookingDatamapper = {
    * Method to create a booking
    * @param {Object} obj - object with all the informations needed to create a booking
    * @returns {Object} object with the informations of the booking
-   * @returns {404} if no booking found
+   * @returns {404} if no insert
+   * @returns {409} if booking not available
    * @returns {500} if an error occured
    * @async
    */
