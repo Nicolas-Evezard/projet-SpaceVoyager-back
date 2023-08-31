@@ -28,9 +28,8 @@ BEGIN
         SELECT id 
         FROM web.booking
         WHERE user_id = id_selected
-            LOOP
-        
-        PERFORM web.delete_booking(temprow.id,id_selected);
+            LOOP        
+                PERFORM web.delete_booking(temprow.id,id_selected);
             END LOOP;
 
         DELETE FROM administration.user
