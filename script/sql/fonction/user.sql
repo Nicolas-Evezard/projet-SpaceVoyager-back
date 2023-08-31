@@ -16,15 +16,24 @@ CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS administration.user A
 
 CREATE OR REPLACE FUNCTION web.delete_user(id_user int) RETURNS boolean AS $$
 DECLARE
-    user_id bigint;
+    id_selected int;
+    temprow record;
 BEGIN
-    SELECT id INTO user_id
+    SELECT id INTO id_selected
     FROM administration.user
     WHERE id = id_user;
 
     IF FOUND THEN
+        FOR temprow IN
+        SELECT id 
+        FROM web.booking
+        WHERE user_id = id_selected
+            LOOP        
+                PERFORM web.delete_booking(temprow.id,id_selected);
+            END LOOP;
+
         DELETE FROM administration.user
-        WHERE id = user_id;
+        WHERE id = id_selected;
         RETURN true;
     ELSE
         RETURN false;
@@ -56,7 +65,7 @@ RETURNS TABLE (id int, firstname text, lastname text , mail text, reservation js
     -- Spaceship
         'spaceship_name', web.spaceship.name,
     -- Booking
-        'booking_id',web.booking.id
+        'booking_id',web.booking.id,
         'booking_nbparticipants',web.booking.nbparticipants,
         'booking_total_price',web.booking.total_price)
 	FROM administration.user									
