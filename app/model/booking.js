@@ -3,7 +3,6 @@ const debug = require("debug")("model");
 const APIError = require("../service/APIError");
 
 const bookingDatamapper = {
-
   /**
    * Method to get all Hostels available for a booking
    * @param {int} person - number of person
@@ -55,7 +54,10 @@ const bookingDatamapper = {
     try {
       const response = await client.query(sqlQuery, values);
       if (response.rows.length == 0) {
-        error = new APIError("The last hotel room was taken in the meantime",404);
+        error = new APIError(
+          "The last hotel room was taken in the meantime",
+          404
+        );
       } else {
         result = response.rows;
       }
@@ -102,18 +104,31 @@ const bookingDatamapper = {
    * @async
    */
   async create(obj) {
-    const sqlQuery = `SELECT * FROM web.insert_booking($1)`;
-    const values = [obj];
+    const sqlQuery = `SELECT * from web.available_lastcheck($1, $2, $3, $4, $5)`;
+    const values = [
+      obj.person,
+      obj.dp_date,
+      obj.cb_date,
+      obj.room_id,
+      obj.planet_id,
+    ];
+
+    const sqlQueryFinal = `SELECT * FROM web.insert_booking($1)`;
+    const valuesFinal = [obj];
     let result;
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      debug(response);
+      console.log(response);
       if (response.rows.length == 0) {
-        error = new APIError("No reservation has been created", 404);
+        error = new APIError("Order not available", 409);
       } else {
-        result = response.rows[0];
-        debug(result);
+        const responseFinal = await client.query(sqlQueryFinal, valuesFinal);
+        if (responseFinal.rows.length == 0) {
+          error = new APIError("No reservation has been created", 404);
+        } else {
+          result = responseFinal.rows[0];
+        }
       }
     } catch (err) {
       debug(err);
