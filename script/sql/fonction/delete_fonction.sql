@@ -9,4 +9,5 @@ DROP FUNCTION IF EXISTS web.get_planet;
 DROP FUNCTION IF EXISTS web.get_one_user;
 DROP FUNCTION IF EXISTS web.update_user;
 DROP FUNCTION IF EXISTS web.check_user;
+DROP FUNCTION IF EXISTS web.insert_user;
 DROP FUNCTION IF EXISTS web.delete_user;

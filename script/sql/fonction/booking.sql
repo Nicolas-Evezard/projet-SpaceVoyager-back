@@ -125,7 +125,7 @@ BEGIN
         END IF;
     ELSE
         RETURN false;
-    END IF        
+    END IF;        
 END; 
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
