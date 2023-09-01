@@ -19,8 +19,8 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.1",
     "pg": "^8.11.3"
-  }
+  },
   "engines": {
-  "node": "14.0.0"
+  "node": "14.17.0"
 }
 }
