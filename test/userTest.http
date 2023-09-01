@@ -31,9 +31,8 @@ POST http://localhost:3000/user
 content-type: application/json
 
 {
-    "firstname":"NicolasCorroyez",
-    "lastname":"CCCCCCCCOROYEZ",
-    "password":"cocor",
-    "mail":"nicocotest@test.com",
-    "role":"member"
+    "firstname":"test2",
+    "lastname":"test2",
+    "password":"test2",
+    "mail":"test2@test.com"
 }
