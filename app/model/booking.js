@@ -120,7 +120,6 @@ const bookingDatamapper = {
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      console.log(response);
       if (response.rows.length == 0) {
         error = new APIError("Order not available", 409);
       } else {

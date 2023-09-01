@@ -1,17 +1,16 @@
-CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS administration.user AS $$
+CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS TABLE (id int, firstname text, lastname text, mail text) AS $$
 
     INSERT INTO administration.user
-    (firstname, lastname, mail, password, role)
+    (firstname, lastname, mail, password)
     VALUES
     (
         u->>'firstname',
         u->>'lastname',
         u->>'mail',
-        u->>'password',
-        u->>'role'
+        u->>'password'
     )
     -- Je retourne la ligne insérée
-    RETURNING *;
+    RETURNING id, firstname, lastname, email;
     $$ LANGUAGE sql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION web.delete_user(id_user int) RETURNS boolean AS $$
@@ -88,10 +87,15 @@ CREATE OR REPLACE FUNCTION web.update_user(u json) RETURNS administration.user A
 DECLARE
     user_db administration.user;
 BEGIN
-    -- je récupère un user en BDD par son id
-    SELECT * 
+    
+    SELECT id, firstname, lastname, mail
     INTO user_db
     FROM administration.user WHERE id=(u->>'id')::int;
+	
+	IF NOT FOUND THEN
+        -- Handle the case where the user record does not exist
+        RAISE EXCEPTION 'User with ID % not found', (u->>'id')::int;
+    END IF;
 
     IF u->>'firstname' IS NOT NULL
     THEN 
@@ -112,14 +116,6 @@ BEGIN
     SET firstname = user_db.firstname, lastname = user_db.lastname, mail = user_db.mail
     WHERE id = (u->> 'id')::int;
 
-    -- plpgsql nous oblige à utiliser le mot RETURN pour retourner la valeur
     RETURN user_db;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
-
-CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS $$
-	SELECT *
-	FROM administration.user
-	WHERE mail=u->>'mail';
-
-$$ LANGUAGE sql SECURITY DEFINER;

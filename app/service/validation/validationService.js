@@ -5,7 +5,6 @@ const debug = require("debug")("validationService");
 const validationService = {
   isConnected(req, res, next) {
     //!if (req.session.user) {
-    console.log("this is validation service");
     let error;
     let decoded;
     const requestHeaders = req.headers;
@@ -29,12 +28,10 @@ const validationService = {
         req.user = decoded.user; // user contient quelque chose, sous-entendu je suis connecté, je peux passer à la suite
         next();
       } else {
-        console.log("Token invalide");
         error = new APIError("Token invalide 2", 500);
         next(error);
       }
     } else {
-      console.log("Token invalide");
       error = new APIError("Token invalide 3", 500);
       next(error);
     }
