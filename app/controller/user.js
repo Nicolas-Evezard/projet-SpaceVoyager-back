@@ -110,8 +110,6 @@ const userController = {
           delete result.password;
           delete result.role;
           delete result.mail;
-          console.log("this is new session");
-          console.log(result);
           const token = jwt.sign(
             {
               user: result,
