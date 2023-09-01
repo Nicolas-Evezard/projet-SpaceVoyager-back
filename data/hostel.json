@@ -3,49 +3,49 @@
     "name": "Hotel le Marsouin",
     "content": "L'hotel du Marsouin en plein coeur des massifs de Mars vous accueille 7j7, 24H/24 au sein de son bâtiment futuriste.",
     "adress": "24 route du champs de Mars",
-    "img": "",
+    "img": "hotelmarsouin.jpg",
     "planet": "Mars"
   },
   {
     "name": "Hotel le Venusia",
     "content": "L'hotel du Venusia vous accueille sans restriction d'ouverture sur ses 243 jours par an, dans un bâtiment à la décoration des années 1930",
     "adress": " 1 rue du Vénusuela",
-    "img": "",
+    "img": "hotelvenusie.jpg",
     "planet": "Venus"
   },
   {
     "name": "Hotel le Mercure",
     "content": "L'hotel du Mercure a été implanté en 1980 lorsque Neil Armstrong s'est posé sur Mercure la confondant avec notre satelite la Lune. La réception est ouverte 7j/7 24H/24.",
     "adress": "13 avenue du Mercure au chrome",
-    "img": "",
+    "img": "hotelmercure.jpg",
     "planet": "Mercure"
   },
   {
     "name": "Hotel le Jupiter",
     "content": "L'hotel du Jupiter en plein coeur des tempètes de sable vous offre un spectacle à couper le souffle avec leurs hauteurs pouvant atteindre 5000m de haut vous accueille 7j7, 24H/24 au sein de son bâtiment aux références de Tataouine",
     "adress": "74 rue interstellar",
-    "img": "",
+    "img": "hoteljupiter.jpg",
     "planet": "Jupiter"
   },
   {
     "name": "Hotel le Saturne",
     "content": "L'hotel du Saturne, aliant décoration futuriste et nature, a été spécialement configuré afin de profiter des anneaux sur un panorama de 360°. l'accueil est ouvert 7j7, 24H/24.",
     "adress": "1 route pour les gouverner tous",
-    "img": "",
+    "img": "hotelsaturne.jpg",
     "planet": "Saturne"
   },
   {
     "name": "Hotel l'Uranoscope",
     "content": "La planète étant gazeuse, il n'est pour l'instant pas possible de la visiter.",
     "adress": "neant",
-    "img": "",
+    "img": "hoteluranoscope.jpg",
     "planet": "Uranus"
   },
   {
     "name": "Hotel le Neptunia",
     "content": "L'hotel du Neptunia est l'endroit idéal pour se rafraichir les idées. En effet, la géante de glaces peut connaitre des températures allant à -218°. Sa composition lui offre un spéctacle nocturne inoubliable totalement observable depuis nos chambres avec vue panoramique ! Notre réception vous accueille 7j/7 24H/24 afin de vous assurer un confort sans interuption.",
     "adress": "24 allée d'Oclock",
-    "img": "",
+    "img": "hotelneptunia.jpg",
     "planet": "Neptune"
   }
 ]

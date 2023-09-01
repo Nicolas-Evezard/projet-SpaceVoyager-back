@@ -1,9 +1,7 @@
-// Déclaration du routeur "booking"
-// sous-entendu, mon URL est préfixée par /booking
 const express = require("express");
 const router = express.Router();
+const validationService = require("../service/validation/validationService");
 
-// Import du controller
 const { bookingController } = require("../controller");
 
 /**
@@ -13,18 +11,10 @@ const { bookingController } = require("../controller");
  * @param {Booking} request.query.required - Booking info (hotel and room depending on query)
  * @return {[Booking]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Research not found
+ * @return {ApiError} 500 - Internal server error
  */
 router.get("/search", bookingController.search);
-
-/**
- * POST /booking
- * @summary Create a booking
- * @tags Booking
- * @param {Booking} request.body.required - Booking info
- * @return {Booking} 200 - success response - application/json
- * @return {ApiError} 400 - Bad request response - application/json
- */
-router.post("/", bookingController.create);
 
 /**
  * DELETE /booking/:id
@@ -33,7 +23,21 @@ router.post("/", bookingController.create);
  * @param {number} id.path.required - booking identifier
  * @return {Booking} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Booking not found
+ * @return {ApiError} 500 - Internal server error
  */
-router.delete("/:id", bookingController.delete);
+router.delete("/:id", validationService.isConnected, bookingController.delete);
+
+/**
+ * POST /booking
+ * @summary Create a booking
+ * @tags Booking
+ * @param {Booking} request.body.required - Booking info
+ * @return {Booking} 200 - success response - application/json
+ * @return {ApiError} 400 - Bad request response - application/json
+ * @return {ApiError} 404 - Booking not found
+ * @return {ApiError} 500 - Internal server error
+ */
+router.post("/", validationService.isConnected, bookingController.create);
 
 module.exports = router;

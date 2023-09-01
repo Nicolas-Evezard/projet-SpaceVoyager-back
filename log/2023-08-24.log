@@ -1,0 +1,16 @@
+15:36:35.347;Email ou mot de passe incorrect;Error: Email ou mot de passe incorrect
+    at Object.checkUser (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/model/user.js:118:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async login (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/controller/user.js:101:31)
+15:38:44.713;Email ou mot de passe incorrect;Error: Email ou mot de passe incorrect
+    at Object.checkUser (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/model/user.js:118:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async login (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/controller/user.js:101:31)
+15:43:37.403;Mot de passe ou mail incorrect;Error: Mot de passe ou mail incorrect
+    at login (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/controller/user.js:137:23)
+15:44:43.730;Mot de passe ou mail incorrect;Error: Mot de passe ou mail incorrect
+    at login (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/controller/user.js:137:23)
+15:45:55.883;Mot de passe ou mail incorrect;Error: Mot de passe ou mail incorrect
+    at login (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/controller/user.js:137:23)
+15:50:31.495;Mot de passe ou mail incorrect;Error: Mot de passe ou mail incorrect
+    at login (/Users/nicolascorroyez/Documents/Apotheose/projet-02-spaceVoyager-back/app/controller/user.js:137:23)

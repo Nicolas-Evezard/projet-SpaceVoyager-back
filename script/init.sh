@@ -1,7 +1,7 @@
 # Init de la db
 
 export PGUSER=postgres
-
+export PGHOST=bdd-spacevoyager.cyhrfxlj9seu.eu-west-3.rds.amazonaws.com
 ## suppression de l'existant
 dropdb spacevoyager
 dropuser admin_space
@@ -19,8 +19,6 @@ export PGPASSWORD=space
 export PGDATABASE=spacevoyager
 
 psql -f ./sql/create_tables.sql
-
-## ajout des fonctions (TO DO)
 
 ## import des données
 node ./js/importData.js 
