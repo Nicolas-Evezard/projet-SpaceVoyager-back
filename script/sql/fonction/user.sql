@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS TABLE (id int, firstn
         u->>'password'
     )
     -- Je retourne la ligne insérée
-    RETURNING id, firstname, lastname, email;
+    RETURNING id, firstname, lastname, mail;
     $$ LANGUAGE sql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION web.delete_user(id_user int) RETURNS boolean AS $$
@@ -119,3 +119,10 @@ BEGIN
     RETURN user_db;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION web.check_user(u json) RETURNS administration.user AS $$
+	SELECT *
+	FROM administration.user
+	WHERE mail=u->>'mail';
+
+$$ LANGUAGE sql SECURITY DEFINER;
