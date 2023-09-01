@@ -3,7 +3,6 @@ const debug = require("debug")("model");
 const APIError = require("../service/APIError");
 
 const userDatamapper = {
-
   /**
    * Method to create a user
    * @param {object} user - informations of a user
@@ -19,7 +18,6 @@ const userDatamapper = {
       const response = await client.query(sqlQuery, values);
       result = response.rows;
     } catch (err) {
-
       error = new APIError("Internal server error", 500);
     }
     return { error, result };
@@ -66,9 +64,7 @@ const userDatamapper = {
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      console.log(response);
       result = response.rows;
-      console.log(result);
     } catch (err) {
       error = new APIError("Internal error server", 500);
     }
@@ -94,6 +90,7 @@ const userDatamapper = {
       const response = await client.query(sqlQuery, values);
       result = response.rows;
     } catch (err) {
+      debug(err);
       error = new APIError("Internal error server", 500);
     }
     return { error, result };
@@ -118,7 +115,6 @@ const userDatamapper = {
         error = new APIError("Incorrect email or password", 400);
       } else {
         result = response.rows[0];
-        console.log(result);
       }
     } catch (err) {
       error = new APIError("Internal server error", 500, err);

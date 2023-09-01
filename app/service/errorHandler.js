@@ -28,8 +28,6 @@ const errorHandler = {
    */
   async log(err) {
     const fileName = `${err.date.toISOString().slice(0, 10)}.log`;
-
-    // console.log(__dirname);
     // chemin vers mon fichier de log
     const path = join(__dirname, `../../log/${fileName}`);
     debug(path);
