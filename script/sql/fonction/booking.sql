@@ -209,44 +209,31 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
---V2 FONCTION SEARCH HOSTEL 
 CREATE OR REPLACE FUNCTION web.search_available_hostel(person int, date_dp date, date_cb date, planet_name text) RETURNS TABLE(id int, name text, content text, adress text, img text, planet_id int, room json[]) AS $$
 SELECT * FROM
-(SELECT hostel.*,
-ARRAY(
-	SELECT json_build_object('id',room.id,'room_type',room.rank,'price', room.price)
-	FROM web.room
-	WHERE room.hostel_id = hostel.id
-	AND room.id IN (
-		WITH result_calendar AS (
-                        SELECT planet.name, room_id
-                        FROM (
-                            SELECT generate_series(web.departure.departure_date, web.comeback.comeback_date, '1 day'::interval) AS interval, web.booking.nbparticipants, web.booking.room_id, web.booking.hostel_id
-                            FROM web.booking
-                            JOIN web.departure ON web.booking.departure_id = web.departure.id
-                            JOIN web.comeback ON web.booking.comeback_id = web.comeback.id
-                            ORDER BY interval
-                        ) as booking_calendar
-                        JOIN web.hostel ON hostel.id = booking_calendar.hostel_id
-                        JOIN web.planet ON planet.id = hostel.planet_id
-                        WHERE interval BETWEEN date_dp AND date_cb
-                        GROUP by interval, room_id, planet.name, booking_calendar.hostel_id
-                        -- person etant le nombre de participant indiqué par le user
-                        HAVING SUM(booking_calendar.nbparticipants)+ person > room.max_place
-                        ORDER BY interval, room_id, planet.name, booking_calendar.hostel_id),
-
-		compare_calendar AS(
-            SELECT web.planet.name, web.room.id FROM web.planet
-            JOIN web.hostel ON web.hostel.planet_id = web.planet.id
-            JOIN web.room ON web.room.hostel_id = web.hostel.id)
-            SELECT compare_calendar.id
-            FROM compare_calendar
-            LEFT JOIN result_calendar ON compare_calendar.name = result_calendar.name AND compare_calendar.id = result_calendar.room_id
-            WHERE result_calendar.name IS NULL
-		)
-	GROUP BY room.rank, room.price, room.id) as room
-FROM web.hostel
-WHERE planet_id = (SELECT id FROM web.planet WHERE name = planet_name))as subquery
-WHERE array_length(subquery.room, 1)>0
-
-$$ LANGUAGE sql SECURITY DEFINER;
+(SELECT 
+        hostel.*,
+        ARRAY (
+            SELECT json_build_object('id', room.id, 'room_type', room.rank, 'price', room.price)
+            FROM web.room
+            WHERE room.hostel_id = hostel.id
+            AND NOT EXISTS (
+                SELECT 1
+                FROM generate_series(date_dp, date_cb, interval '1 day') AS interval
+                WHERE EXISTS (
+                    SELECT 1
+                    FROM web.booking
+                    JOIN web.departure ON booking.departure_id = departure.id
+                    JOIN web.comeback ON booking.comeback_id = comeback.id
+                    WHERE interval BETWEEN departure.departure_date AND comeback.comeback_date
+                        AND hostel.planet_id = (SELECT id FROM web.planet WHERE name = planet_name)
+                        AND booking.room_id = room.id
+                    GROUP BY booking.room_id
+                    HAVING SUM(booking.nbparticipants) + person > room.max_place
+                )
+            )
+        ) AS room
+    FROM web.hostel
+    WHERE hostel.planet_id = (SELECT id FROM web.planet WHERE name = planet_name)) as subquery
+WHERE array_length(subquery.room, 1)>0;
+$$ LANGUAGE sql SECURITY DEFINER;  

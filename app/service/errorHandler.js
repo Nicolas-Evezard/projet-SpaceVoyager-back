@@ -12,6 +12,7 @@ const errorHandler = {
    * @param {*} next
    */
   async manage(err, req, res, next) {
+    debug(err);
     // j'écris dans le fichier de logs
     errorHandler.log(err);
 
