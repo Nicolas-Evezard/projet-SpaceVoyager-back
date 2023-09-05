@@ -2,11 +2,13 @@ const { planetDatamapper } = require("../model");
 const debug = require("debug")("controller");
 
 const planetController = {
-
   /**
    * Method to get all planets
-   * @param {*} res
-   * @param {*} next
+   * @param {*} req - The request object (unused in this function).
+   * @param {*} res - The response object.
+   * @param {*} next - The next middleware function.
+   * @returns {void}
+   * @async
    */
   async getAll(_, res, next) {
     const { error, result } = await planetDatamapper.getAll();
@@ -22,6 +24,8 @@ const planetController = {
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @returns {void}
+   * @async
    */
   async getOne(req, res, next) {
     const { id } = req.params;

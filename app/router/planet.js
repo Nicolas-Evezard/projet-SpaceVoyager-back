@@ -6,6 +6,7 @@ const { planetController } = require("../controller");
 /**
  * GET /planet
  * @summary Get all planet
+ * @description Retrieves a list of all planets available.
  * @tags Planet
  * @return {[Planet]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
@@ -15,8 +16,9 @@ const { planetController } = require("../controller");
 router.get("/", planetController.getAll);
 
 /**
- * GET /planet/{id}
+ * GET /planet/:id
  * @summary Get one planet
+ * @description Retrieves information about a specific planet.
  * @tags Planet
  * @param {number} id.path.required - planet identifier
  * @return {Planet} 200 - success response - application/json

@@ -6,7 +6,8 @@ const { bookingController } = require("../controller");
 
 /**
  * GET /booking
- * @summary Get all planets and hostels depending on disponibility
+ * @summary Get a booking
+ * @description Get all planets and hostels depending on disponibility
  * @tags Booking
  * @param {Booking} request.query.required - Booking info (hotel and room depending on query)
  * @return {[Booking]} 200 - success response - application/json
@@ -19,6 +20,7 @@ router.get("/search", bookingController.search);
 /**
  * DELETE /booking/:id
  * @summary Delete a booking
+ * @description Delete a booking depending on the id in req.params and the logged user
  * @tags Booking
  * @param {number} id.path.required - booking identifier
  * @return {Booking} 200 - success response - application/json
@@ -35,6 +37,7 @@ router.delete(
 /**
  * POST /booking
  * @summary Create a booking
+ * @description Create a booking depending on request.body
  * @tags Booking
  * @param {Booking} request.body.required - Booking info
  * @return {Booking} 200 - success response - application/json

@@ -8,7 +8,7 @@ const insert = Joi.object({
     .required(),
   password: Joi.string()
     .pattern(
-      new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!])(.{8,})$")
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&\.,])[A-Za-z\d@$!%*#?&\.,]{8,}$/
     )
     .required(),
 }).required();
