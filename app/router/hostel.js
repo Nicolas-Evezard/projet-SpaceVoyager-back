@@ -24,6 +24,6 @@ router.get("/", hostelController.getAll);
  * @return {ApiError} 404 - Hostel not found
  * @return {ApiError} 500 - Internal server error
  */
-router.get("/:id", hostelController.getOne);
+router.get("/:id(\\d+)", hostelController.getOne);
 
 module.exports = router;

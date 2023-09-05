@@ -24,6 +24,6 @@ router.get("/", planetController.getAll);
  * @return {ApiError} 404 - Planet not found
  * @return {ApiError} 500 - Internal server error
  */
-router.get("/:id", planetController.getOne);
+router.get("/:id(\\d+)", planetController.getOne);
 
 module.exports = router;

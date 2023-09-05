@@ -26,7 +26,11 @@ router.get("/search", bookingController.search);
  * @return {ApiError} 404 - Booking not found
  * @return {ApiError} 500 - Internal server error
  */
-router.delete("/:id", validationService.isConnected, bookingController.delete);
+router.delete(
+  "/:id(\\d+)",
+  validationService.isConnected,
+  bookingController.delete
+);
 
 /**
  * POST /booking
@@ -38,6 +42,11 @@ router.delete("/:id", validationService.isConnected, bookingController.delete);
  * @return {ApiError} 404 - Booking not found
  * @return {ApiError} 500 - Internal server error
  */
-router.post("/", validationService.isConnected, bookingController.create);
+router.post(
+  "/",
+  validationService.isConnected,
+  validationService.isBooking("insert"),
+  bookingController.create
+);
 
 module.exports = router;

@@ -2,17 +2,62 @@ const APIError = require("../APIError");
 const jwt = require("jsonwebtoken");
 const debug = require("debug")("validationService");
 
+const userSchema = require("../schema/userSchema");
+const bookingSchema = require("../schema/bookingSchema");
+
 const validationService = {
+  /**
+   * Vérification du format des données reçues
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  isUser(schema) {
+    return (req, res, next) => {
+      const { error } = userSchema[schema].validate(req.body);
+      console.log(error);
+
+      if (!error) {
+        next();
+      } else {
+        next(new APIError("Erreur, ce n'est pas un user", 400));
+      }
+    };
+  },
+
+  /**
+   * Vérification du format des données reçues
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  isBooking(schema) {
+    return (req, res, next) => {
+      const { error } = bookingSchema[schema].validate(req.body);
+      console.log(error);
+
+      if (!error) {
+        next();
+      } else {
+        next(new APIError("Erreur, ce n'est pas un booking", 400));
+      }
+    };
+  },
+
+  /**
+   * Vérification du token d'un user
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+
   isConnected(req, res, next) {
-    //!if (req.session.user) {
     let error;
     let decoded;
     const requestHeaders = req.headers;
-    // par exemple : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2OTA1MzY2NTJ9.VrLLfbpP9al583wAfRmXMe9LLJnGo5bzvIv7qRLMZ7Q'
     const authorizationHeader = requestHeaders.authorization;
 
-    // le split(" ") découpe ma chaine de caractères suivant un séprateur " " (ici c'est l'espace)
-    const authorizationInformation = authorizationHeader.split(" "); // je me retrouve avec un tableau de string
+    const authorizationInformation = authorizationHeader.split(" ");
 
     if (authorizationInformation.length == 2) {
       const token = authorizationInformation[1];
@@ -23,9 +68,8 @@ const validationService = {
         error = new APIError("Token invalide 1", 500, err);
         next(error);
       }
-      // le token et la session sont ils identiques ?
       if (JSON.stringify(decoded.user)) {
-        req.user = decoded.user; // user contient quelque chose, sous-entendu je suis connecté, je peux passer à la suite
+        req.user = decoded.user;
         next();
       } else {
         error = new APIError("Token invalide 2", 500);
@@ -35,11 +79,6 @@ const validationService = {
       error = new APIError("Token invalide 3", 500);
       next(error);
     }
-    //!} else {
-    //!  console.log("Token invalide");
-    //   const error = new APIError("Token invalide", 500);
-    //   next(error);
-    //!}
   },
 };
 

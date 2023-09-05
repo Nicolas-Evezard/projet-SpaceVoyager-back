@@ -16,8 +16,9 @@ const userDatamapper = {
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      result = response.rows;
+      result = response.rows[0];
     } catch (err) {
+      console.log(err);
       error = new APIError("Internal server error", 500);
     }
     return { error, result };
@@ -64,11 +65,11 @@ const userDatamapper = {
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      result = response.rows;
+      result = response.rows[0];
     } catch (err) {
       error = new APIError("Internal error server", 500);
     }
-    if (result.length === 0 || result[0].id === null) {
+    if (result.length === 0 || result.id === null) {
       error = new APIError("User not found", 404);
     }
     return { error, result };
@@ -88,7 +89,7 @@ const userDatamapper = {
     let error;
     try {
       const response = await client.query(sqlQuery, values);
-      result = response.rows;
+      result = response.rows[0];
     } catch (err) {
       debug(err);
       error = new APIError("Internal error server", 500);
