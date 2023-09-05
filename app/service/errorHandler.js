@@ -28,15 +28,8 @@ const errorHandler = {
    */
   async log(err) {
     const fileName = `${err.date.toISOString().slice(0, 10)}.log`;
-    // chemin vers mon fichier de log
     const path = join(__dirname, `../../log/${fileName}`);
     debug(path);
-
-    /*
-            Nous allons logguer le moment où est survenue l'erreur, le message de celle-ci, la stacktrace ainsi que le contexte (par exemple le endpoint de notre API qui a conduit à l'erreur)
-
-            un endpoint au niveau d'une API correspond à une route
-        */
 
     const time = err.date.toISOString().slice(11, -1);
     let errorMessage;
@@ -46,7 +39,6 @@ const errorHandler = {
       errorMessage = err.message;
     }
     const text = `${time};${errorMessage};${err.stack}\r\n`;
-    // j'écris dans mon fichier de log
     await appendFile(path, text);
   },
 

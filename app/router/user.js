@@ -12,7 +12,7 @@ const { userController } = require("../controller");
  * @return {User} 200 - success response - application/json
  * @return {ApiError} 500 - Internal server error
  */
-router.post("/", userController.register);
+router.post("/", validationService.isUser("insert"), userController.register);
 
 /**
  * GET /user
@@ -23,7 +23,7 @@ router.post("/", userController.register);
  * @return {ApiError} 404 - User not found
  * @return {ApiError} 500 - Internal server error
  */
-router.get("/:id", validationService.isConnected, userController.getOne);
+router.get("/:id(\\d+)", validationService.isConnected, userController.getOne);
 
 /**
  * PATCH /user
@@ -33,7 +33,12 @@ router.get("/:id", validationService.isConnected, userController.getOne);
  * @return {User} 200 - success response - application/json
  * @return {ApiError} 500 - Internal server error
  */
-router.patch("/:id", validationService.isConnected, userController.modifyOne);
+router.patch(
+  "/:id(\\d+)",
+  validationService.isConnected,
+  validationService.isUser("update"),
+  userController.modifyOne
+);
 
 //! CHECK IF WE NEED TO PUT VALIDATIONSERVICE INTO ROAD DELETE
 /**
@@ -45,7 +50,11 @@ router.patch("/:id", validationService.isConnected, userController.modifyOne);
  * @return {ApiError} 404 - User not found
  * @return {ApiError} 500 - Internal server error
  */
-router.delete("/:id", validationService.isConnected, userController.deleteOne);
+router.delete(
+  "/:id(\\d+)",
+  validationService.isConnected,
+  userController.deleteOne
+);
 
 /**
  * POST /login
@@ -53,7 +62,7 @@ router.delete("/:id", validationService.isConnected, userController.deleteOne);
  * @tags Post
  * @return {Mail} 200 - success response - application/json
  * @return {ApiError} 400 - Incorrect mail or password
- * @return {ApiError} 500 - Internal server error 
+ * @return {ApiError} 500 - Internal server error
  */
 router.post("/login", userController.login);
 
