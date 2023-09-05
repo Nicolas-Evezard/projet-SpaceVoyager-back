@@ -57,22 +57,23 @@ SELECT *
 $$ LANGUAGE sql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION web.available_lastcheck(person int, date_dp date, date_cb date, id_room int, id_planet int) RETURNS SETOF web.planet AS $$
-  SELECT *
+SELECT *
   FROM web.planet
   WHERE id = id_planet
     AND NOT EXISTS (
-      SELECT 1
-      FROM generate_series(date_dp, date_cb, interval '1 day') AS interval,
-           web.booking
-      JOIN web.departure ON web.booking.departure_id = web.departure.id
-      JOIN web.comeback ON web.booking.comeback_id = web.comeback.id
-      JOIN web.hostel ON web.booking.hostel_id = web.hostel.id
-      JOIN web.room ON web.hostel.id = web.room.hostel_id
-      WHERE interval BETWEEN web.departure.departure_date AND web.comeback.comeback_date
-        AND web.room.id = id_room
-        AND web.planet.id = id_planet
-      GROUP BY interval, web.room.id, web.planet.id, web.hostel.id, web.room.max_place
-      HAVING SUM(web.booking.nbparticipants) + person > web.room.max_place
+		SELECT 1 FROM generate_series(date_dp, date_cb, interval '1 day') AS interval
+                WHERE EXISTS (
+                    SELECT 1
+                    FROM web.booking
+                    JOIN web.departure ON web.booking.departure_id = web.departure.id
+    				JOIN web.comeback ON web.booking.comeback_id = web.comeback.id
+    				JOIN web.room ON web.booking.room_id = web.room.id
+    				JOIN web.hostel ON web.room.hostel_id = web.hostel.id
+                    WHERE interval BETWEEN departure.departure_date AND comeback.comeback_date
+                        AND hostel.planet_id = 3
+                        AND booking.room_id = 1
+                    GROUP BY booking.room_id, room.max_place
+                    HAVING SUM(booking.nbparticipants) + person > room.max_place)
     )
     AND NOT EXISTS (
       -- Sous-requête pour vérifier les vols complets de retour
@@ -92,7 +93,7 @@ CREATE OR REPLACE FUNCTION web.available_lastcheck(person int, date_dp date, dat
         AND web.departure.reserved_place + person > web.spaceship.max_place
         AND web.departure.planet_id = id_planet
     );
-$$ LANGUAGE sql SECURITY DEFINER;
+$$ LANGUAGE sql SECURITY DEFINER;	
 
 CREATE OR REPLACE FUNCTION web.delete_booking(id_booking int, id_user int) RETURNS boolean AS $$
 DECLARE 
