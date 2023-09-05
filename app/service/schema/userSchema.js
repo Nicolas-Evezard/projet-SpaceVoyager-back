@@ -17,7 +17,7 @@ const update = Joi.object({
   id: Joi.number().integer(),
   firstname: Joi.string().pattern(new RegExp("^[a-zA-Z]+$")),
   lastname: Joi.string().pattern(new RegExp("^[a-zA-Z]+$")),
-  email: Joi.string().email({
+  mail: Joi.string().email({
     minDomainSegments: 2,
     tlds: { allow: ["com", "net", "fr"] },
   }),
