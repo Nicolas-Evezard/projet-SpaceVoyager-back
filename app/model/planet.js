@@ -2,11 +2,24 @@ const client = require("../service/dbPool");
 const debug = require("debug")("model");
 const APIError = require("../service/APIError");
 
-const planetDatamapper = {
+/**
+ * @typedef {object} Planet
+ * @property {number} id - Identifiant unique Pk de la table
+ * @property {string} name - Name of the planets
+ * @property {int} distance - Distance of the planets
+ * @property {int} distance_light_year - distance in years of planets
+ * @property {string} content - Content of the planets
+ * @property {int} radius - Radius of the planets
+ * @property {int} temp_min - Minimal temperature of the planets
+ * @property {int} temp_max - Maximal temperature of the planets
+ * @property {string} img - img url of the planets
+ * @property {int} price - Price of the planets
+ */
 
-    /**
+const planetDatamapper = {
+  /**
    * Method to get all planets
-   * @returns {Array} Array of Planets objects
+   * @returns {[Planet]} Array of Planets objects
    * @returns {404} if no planets found
    * @returns {500} if an error occured
    * @async
@@ -30,8 +43,8 @@ const planetDatamapper = {
 
   /**
    * Method to get one planet
-   * @param {int} -id of the planet
-   * @returns {Object} Planet object
+   * @param {int} id - id of the planet
+   * @returns {Planet} Planet object
    * @returns {404} if no planet found
    * @returns {500} if an error occured
    * @async

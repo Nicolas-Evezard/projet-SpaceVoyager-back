@@ -2,10 +2,40 @@ const client = require("../service/dbPool");
 const debug = require("debug")("model");
 const APIError = require("../service/APIError");
 
+/**
+ * @typedef {object} User
+ * @property {number} id - id of user
+ * @property {string} firstname - firstname of user
+ * @property {string} lastname - lastname of user
+ * @property {string} mail - email of user
+ * @property {Array} reservation - all reservation of user
+ */
+
+/**
+ * @typedef {object} InputRegisterUser
+ * @property {string} firstname - firstname of user
+ * @property {string} lastname - lastname of user
+ * @property {string} mail - email of user
+ * @property {string} password - password of user
+ */
+
+/**
+ * @typedef {object} InputPatchUser
+ * @property {string} firstname - firstname of user
+ * @property {string} lastname - lastname of user
+ * @property {string} mail - email of user
+ */
+
+/**
+ * @typedef {object} InputLoginUser
+ * @property {string} mail - email of user
+ * @property {string} password - password of user
+ */
+
 const userDatamapper = {
   /**
    * Method to create a user
-   * @param {object} user - informations of a user
+   * @param {InputRegisterUser} user - informations of a user
    * @returns {500} - if an error occured
    * @async
    */
@@ -53,7 +83,7 @@ const userDatamapper = {
   /**
    * Method to get a user by his id
    * @param {int} id - id of a user
-   * @returns {Object} - User object
+   * @returns {User} - User object
    * @returns {404} - if a user do not exist
    * @returns {500} - if an error occured
    * @async
@@ -77,8 +107,8 @@ const userDatamapper = {
 
   /**
    * Method to modify a user
-   * @param {object} userInfo - informations of a user
-   * @returns {Object} - User object with updated informations
+   * @param {InputPatchUser} userInfo - informations of a user
+   * @returns {User} - User object with updated informations
    * @returns {500} - if an error occured
    * @async
    */
@@ -99,8 +129,8 @@ const userDatamapper = {
 
   /**
    * Method to log a user
-   * @param {object} user - user mail
-   * @returns {Object} - user mail
+   * @param {InputLoginUser} user - user mail
+   * @returns {User} - user information
    * @returns {400} - if incorrect email or password
    * @returns {500} - if an error occured
    * @async

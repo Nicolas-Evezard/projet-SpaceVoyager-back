@@ -2,11 +2,13 @@ const { hostelDatamapper } = require("../model");
 const debug = require("debug")("controller");
 
 const hostelController = {
-  
   /**
    * Method to get all hostels
-   * @param {*} res
-   * @param {*} next
+   * @param {*} req - The request object (unused in this function).
+   * @param {*} res - The response object.
+   * @param {*} next - The next middleware function.
+   * @returns {void}
+   * @async
    */
   async getAll(_, res, next) {
     const { error, result } = await hostelDatamapper.getAll();
@@ -22,6 +24,8 @@ const hostelController = {
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @returns {void}
+   * @async
    */
   async getOne(req, res, next) {
     const { id } = req.params;

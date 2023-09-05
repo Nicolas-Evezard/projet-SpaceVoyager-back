@@ -3,12 +3,13 @@ const debug = require("debug")("controller");
 const APIError = require("../service/APIError");
 
 const bookingController = {
-  
   /**
    * Method to get all booking
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @returns {void}
+   * @async
    */
   async search(req, res, next) {
     const person = parseInt(req.query.person);
@@ -55,6 +56,8 @@ const bookingController = {
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @returns {void}
+   * @async
    */
   async delete(req, res, next) {
     const userId = req.user.id;
@@ -74,6 +77,8 @@ const bookingController = {
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @returns {void}
+   * @async
    */
   async create(req, res, next) {
     const { error, result } = await bookingDatamapper.create(req.body);

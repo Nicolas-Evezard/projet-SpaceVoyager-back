@@ -6,6 +6,7 @@ const { hostelController } = require("../controller");
 /**
  * GET /hostel
  * @summary Get all hostels
+ * @description Retrieves a list of all hostels available.
  * @tags Hostel
  * @return {[Hostel]} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
@@ -17,8 +18,9 @@ router.get("/", hostelController.getAll);
 /**
  * GET /hostel/:id
  * @summary Get one hostel
+ * @description Retrieves information about a specific hostel.
  * @tags Hostel
- * @param {number} id.path.required - hostel identifier
+ * @param {int} id.path.required - hostel identifier
  * @return {Hostel} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  * @return {ApiError} 404 - Hostel not found

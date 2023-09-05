@@ -2,11 +2,20 @@ const client = require("../service/dbPool");
 const debug = require("debug")("model");
 const APIError = require("../service/APIError");
 
+/**
+ * @typedef {object} Hostel
+ * @property {number} id - Identifiant unique Pk de la table
+ * @property {string} name - Name of the hostel
+ * @property {string} content - Description of the hostel
+ * @property {string} adress - Adress of the hostel
+ * @property {string} img - image name for the hostel
+ * @property {number} planet_id - the id of linked planet
+ */
+
 const hostelDatamapper = {
-  
   /**
    * Method to get all hostels
-   * @returns {Array} Array of Hostel objects
+   * @returns {[Hostel]} Array of Hostel objects
    * @returns {404} if no hostel found
    * @returns {500} if an error occured
    * @async
@@ -29,8 +38,8 @@ const hostelDatamapper = {
 
   /**
    * Method to get one hostel
-   * @param {int} -id of the hostel
-   * @returns {Object} Hostel object
+   * @param {int} id - id of the hostel
+   * @returns {Hostel} Hostel object
    * @returns {404} if no hostel found
    * @returns {500} if an error occured
    * @async
