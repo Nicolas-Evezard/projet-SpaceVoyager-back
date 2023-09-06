@@ -3,11 +3,10 @@ export PGUSER=admin_space
 export PGPASSWORD=space
 export PGDATABASE=spacevoyager
 
-# je supprime mes fonctions
+# I DELETE FUNCTIONS
 psql -f ./sql/fonction/delete_fonction.sql
 
-
-# j'ajoute mes fonctions
+# I ADD FUNCTIONS
 psql -f ./sql/fonction/booking.sql
 psql -f ./sql/fonction/hostel.sql
 psql -f ./sql/fonction/planet.sql

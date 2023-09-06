@@ -1,5 +1,5 @@
 /************************************************/
-/* Fichier d'import des catégories et des posts */
+/****** Import categories and posts datas *******/
 /************************************************/
 
 const booking = require("../../data/booking.json");
@@ -13,6 +13,7 @@ const spaceship = require("../../data/spaceship.json");
 
 const client = require("../../app/service/dbPool.js");
 
+//initialisation of array to search foreign key
 let planetDB;
 let hostelDB;
 let spaceshipDB;
@@ -22,7 +23,7 @@ let roomDB;
 let userDB;
 
 async function importPlanet() {
-  //1. je parcours les planetes
+  //1. I get data from the planets
   const values = [];
   const parameters = [];
   let counter = 1;
@@ -45,7 +46,7 @@ async function importPlanet() {
     values.push(element.price);
   }
 
-  // j'insère une planet et je récupère tous les id
+  //1.1 Insert a planet and get all ids
   const sqlQuery = `
           INSERT INTO web.planet
           (name, distance, distance_light_year, content, radius, temp_min, temp_max, img, price)
@@ -64,7 +65,7 @@ async function importHostel() {
   const parameters = [];
   let counter = 1;
 
-  //2. je parcours les hostels
+  //2. I get data from the hostels
   for (const element of hostel) {
     parameters.push(
       `($${counter},$${counter + 1},$${counter + 2},$${counter + 3},$${
@@ -73,7 +74,7 @@ async function importHostel() {
     );
     counter += 5;
 
-    // je récupère le planet_id de l'hotel que je veux insérer
+    // I get the planet_id of the hostel I want to insert
     const planetId = planetDB.find(
       (planet) => element.planet == planet.name
     ).id;
@@ -85,7 +86,7 @@ async function importHostel() {
     values.push(planetId);
   }
 
-  // j'insère mes post
+  // I insert my hostels and get all id associate to name in a array
   const sqlQuery = `
     INSERT INTO web.hostel
     (name, content, adress, img, planet_id)
@@ -104,7 +105,7 @@ async function importRoom() {
   const parameters = [];
   let counter = 1;
 
-  //2. je parcours les hostels
+  //2. I get data from the rooms
   for (const element of room) {
     parameters.push(
       `($${counter},$${counter + 1},$${counter + 2},$${counter + 3},$${
@@ -113,7 +114,7 @@ async function importRoom() {
     );
     counter += 5;
 
-    // je récupère le planet_id de l'hotel que je veux insérer
+    // I get the hostel_id of the room I want to insert
     const hostelId = hostelDB.find(
       (hostel) => element.hostel === hostel.name
     ).id;
@@ -125,7 +126,7 @@ async function importRoom() {
     values.push(hostelId);
   }
 
-  // j'insère mes post
+  // I insert my room and get all id associate to rank in a array
   const sqlQuery = `
     INSERT INTO web.room
     (content, price, max_place, rank, hostel_id)
@@ -140,7 +141,7 @@ async function importRoom() {
 }
 
 async function importSpaceship() {
-  //1. je parcours les planetes
+  //1. I get data from the spaceship
   const values = [];
   const parameters = [];
   let counter = 1;
@@ -153,7 +154,7 @@ async function importSpaceship() {
     values.push(element.content);
   }
 
-  // j'insère un vaisseau et je récupère tous les id
+  // I insert my spaceship and get all id associate to name in a array
   const sqlQuery = `
           INSERT INTO web.spaceship
           (name, max_place, content)
@@ -172,19 +173,19 @@ async function importDeparture() {
   const parameters = [];
   let counter = 1;
 
-  //2. je parcours les allers
+  //1. I get data from the departure
   for (const element of departure) {
     parameters.push(
       `($${counter},$${counter + 1},$${counter + 2},$${counter + 3})`
     );
     counter += 4;
 
-    // je récupère le spaceship_id du départ que je veux insérer
+    // I get the spaceship_id of the departure I want to insert
     const spaceshipId = spaceshipDB.find(
       (spaceship) => element.spaceship == spaceship.name
     ).id;
 
-    // je récupère le planet_id du départ que je veux insérer
+    // I get the planet_id of the departure I want to insert
     const planetId = planetDB.find(
       (planet) => element.planet == planet.name
     ).id;
@@ -195,7 +196,7 @@ async function importDeparture() {
     values.push(planetId);
   }
 
-  // j'insère mes post
+  // I insert my departure and get all id associate to departure_date in a array
   const sqlQuery = `
       INSERT INTO web.departure
       (departure_date, reserved_place, spaceship_id, planet_id)
@@ -205,6 +206,8 @@ async function importDeparture() {
 
   const response = await client.query(sqlQuery, values);
   departureDB = response.rows;
+
+  // format date
 
   for (element of departureDB) {
     const date = new Date(element.departure_date).toLocaleDateString("fr-Fr");
@@ -221,19 +224,19 @@ async function importComeback() {
   const parameters = [];
   let counter = 1;
 
-  //2. je parcours les allers
+  //1. I get data from the comeback
   for (const element of comeback) {
     parameters.push(
       `($${counter},$${counter + 1},$${counter + 2},$${counter + 3})`
     );
     counter += 4;
 
-    // je récupère le spaceship_id du comeback que je veux insérer
+    // I get the spaceship_id of the comeback I want to insert
     const spaceshipId = spaceshipDB.find(
       (spaceship) => element.spaceship == spaceship.name
     ).id;
 
-    // je récupère le planet_id du comeback que je veux insérer
+    // I get the planet_id of the comeback flights I want to insert
     const planetId = planetDB.find(
       (planet) => element.planet == planet.name
     ).id;
@@ -244,7 +247,7 @@ async function importComeback() {
     values.push(planetId);
   }
 
-  // j'insère mes post
+  // I insert my comeback flights and get all id associate to comeback_date in a array
   const sqlQuery = `
       INSERT INTO web.comeback
       (comeback_date, reserved_place, spaceship_id, planet_id)
@@ -270,7 +273,7 @@ async function importUser() {
   const parameters = [];
   let counter = 1;
 
-  //2. je parcours les users
+  //2. I go through the Users
   for (const element of user) {
     parameters.push(
       `($${counter},$${counter + 1},$${counter + 2},$${counter + 3},$${
@@ -286,7 +289,7 @@ async function importUser() {
     values.push(element.role);
   }
 
-  // j'insère mes post
+  // I insert my Users
   const sqlQuery = `
     INSERT INTO administration.user
     (firstname, lastname, mail, password, role)
@@ -305,7 +308,7 @@ async function importBooking() {
   const parameters = [];
   let counter = 1;
 
-  //2. je parcours les allers
+  //2. I go through the departures
   for (const element of booking) {
     parameters.push(
       `($${counter},$${counter + 1},$${counter + 2}, $${counter + 3}, $${
@@ -314,25 +317,21 @@ async function importBooking() {
     );
     counter += 7;
 
-    // je récupère le hotel_id du booking que je veux insérer
+    // I get the hostel of the booking I want to insert
     const hostelId = hostelDB.find(
       (hostel) => element.hostel === hostel.name
     ).id;
-
-    // je récupère le room_id du booking que je veux insérer
+    // I get the room_id of the booking I want to insert
     const roomId = roomDB.find((room) => element.room == room.rank).id;
-
-    // je récupère le departure_id du booking que je veux insérer
+    // I get the departure_id of the booking I want to insert
     const departureId = departureDB.find(
       (departure) => element.departure === departure.departure_date
     ).id;
-
-    // je récupère le departure_id du booking que je veux insérer
+    // I get the comeback_id of the booking I want to insert
     const comebackeId = comebackDB.find(
       (comeback) => element.comeback === comeback.comeback_date
     ).id;
-
-    // je récupère le user_id du booking que je veux insérer
+    // I get the user_id of the booking I want to insert
     const userId = userDB.find((user) => element.user === user.mail).id;
 
     values.push(element.nbparticipants);
@@ -344,7 +343,7 @@ async function importBooking() {
     values.push(userId);
   }
 
-  // j'insère mes booking
+  // I insert my booking
   const sqlQuery = `
       INSERT INTO web.booking
       (nbparticipants,total_price, hostel_id, room_id, departure_id, comeback_id, user_id)
@@ -356,10 +355,9 @@ async function importBooking() {
   console.log("comebacks importés avec succès !");
 }
 
-// FONCTION POUR TOUT IMPORTER
-
+// "IMPORT IT ALL" FUNCTION
 async function importData() {
-  // je supprime les données existantes
+  // I delete existing data
   await client.query("TRUNCATE web.planet CASCADE");
   await client.query("TRUNCATE web.hostel CASCADE");
   await client.query("TRUNCATE web.room CASCADE");
@@ -371,6 +369,7 @@ async function importData() {
 
   console.time("Import");
 
+  // I launch all import functions
   await importPlanet();
   await importHostel();
   await importRoom();
@@ -383,4 +382,5 @@ async function importData() {
   console.timeEnd("Import");
 }
 
+// LAUNCH THE MAIN FUNCTION
 importData();

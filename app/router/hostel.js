@@ -1,8 +1,11 @@
+// REQUIRE MODULES
 const express = require("express");
 const router = express.Router();
 
+//CONTROLLER
 const { hostelController } = require("../controller");
 
+//ROUTES
 /**
  * GET /hostel
  * @summary Get all hostels

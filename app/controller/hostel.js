@@ -1,5 +1,8 @@
-const { hostelDatamapper } = require("../model");
+// REQUIRE MODULES
 const debug = require("debug")("controller");
+
+// REQUIRE DATAMAPPER
+const { hostelDatamapper } = require("../model");
 
 const hostelController = {
   /**

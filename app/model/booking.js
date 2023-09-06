@@ -1,9 +1,11 @@
+// REQUIRE MODULES
 const client = require("../service/dbPool");
 const debug = require("debug")("model");
+
+//CLASS FOR ERROR
 const APIError = require("../service/APIError");
 
-// id int, name text, content text, adress text, img text, planet_id int, room json[]
-
+//DEFINE TYPE FOR JSDOC
 /** Definition of a Hostel
  * @typedef {object} Hostel
  * @property {number} id - Identifiant unique Pk de la table

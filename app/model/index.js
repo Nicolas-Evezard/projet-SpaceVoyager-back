@@ -1,3 +1,4 @@
+// REQUIRE DATAMAPPERS
 const bookingDatamapper = require("./booking");
 const hostelDatamapper = require("./hostel");
 const userDatamapper = require("./user");

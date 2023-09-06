@@ -1,5 +1,7 @@
+// REQUIRE MODULES
 const Joi = require("joi");
 
+//JOI SCHEMA FOR INSERT A BOOKING
 const insert = Joi.object({
   person: Joi.number().integer(),
   total_price: Joi.number().integer(),

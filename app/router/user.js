@@ -1,9 +1,14 @@
+// REQUIRE MODULES
 const express = require("express");
 const router = express.Router();
+
+// MIDDLEWARE
 const validationService = require("../service/validation/validationService");
 
+//CONTROLLER
 const { userController } = require("../controller");
 
+// ROUTES
 /**
  * POST /user
  * @summary Post one user

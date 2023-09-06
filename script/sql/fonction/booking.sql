@@ -1,3 +1,4 @@
+-- I create a function that will allow me to check the availability of round-trip flights to the planets on the specified dates for the number of people provided
 CREATE OR REPLACE FUNCTION web.search_available_planet(person int, date_dp date, date_cb date) RETURNS SETOF web.planet AS $$
 SELECT *
     FROM web.planet
@@ -5,7 +6,7 @@ SELECT *
         -- Sous-requête pour sélectionner les ID de planète disponibles
         SELECT planet.id
         FROM web.planet
-        -- je fais un left join de la table qui répertorie les vols retour qui sont complets sur une date donnés en aditionnant le nombre de personne demandé par l'utilisateur
+        -- I perform a left join of the table that lists fully booked return flights on a given date by summing up the number of passengers requested by the user
         LEFT JOIN (
             SELECT planet_id
             FROM web.comeback
@@ -13,7 +14,7 @@ SELECT *
             WHERE comeback_date = date_cb AND reserved_place + person > spaceship.max_place
         ) AS comeback_subquery
         ON planet.id = comeback_subquery.planet_id
-        -- je fais un left join de la table qui répertorie les vols aller qui sont complets sur une date donnés en aditionnant le nombre de personne demandé par l'utilisateur
+        -- I perform a left join on the table that lists fully booked outbound flights on a given date by summing up the number of passengers requested by the user
         LEFT JOIN (
             SELECT planet_id
             FROM web.departure
@@ -21,14 +22,14 @@ SELECT *
             WHERE departure_date = date_dp AND reserved_place + person > spaceship.max_place
         ) AS departure_subquery
         ON planet.id = departure_subquery.planet_id
-        -- je selectionne seulement ceux dont le left join renvoi null, car si c'est null c'est que la planet n'a pas de vol complet (pas de donnés dans les tables de droite du left join)
+        -- I select only those for which the left join returns null because if it's null, it means the planet has no fully booked flights (no data in the right tables of the left join)
         WHERE comeback_subquery.planet_id IS NULL AND departure_subquery.planet_id IS NULL)
-        -- je rnction pour confirmer que le booking est toujours dispoajoute une condition pour trouver seulement les planet dont il y a de la place dans au moins un hotel/room, donc où le nom est dans ma subquerie
+        -- Add a condition to find only the planets where there is availability in at least one hotel/room, meaning their name is in my subquery
         AND planet.name IN (
         --  Common Table Expressions (CTEs) qui répertorie les rooms complets sur les dates    
         WITH result_calendar AS (
                         SELECT planet.name, room_id
-                        -- sous requête de toutes les dates complètes par chambre, avec le nombre de participant par date/chambre distinct
+                        -- Subquery of all fully booked dates per room, with the number of participants per date/room being distinct
                         FROM (
                             SELECT generate_series(web.departure.departure_date, web.comeback.comeback_date, '1 day'::interval) AS interval, web.booking.nbparticipants, web.booking.room_id, web.booking.hostel_id
                             FROM web.booking
@@ -41,10 +42,10 @@ SELECT *
 						JOIN web.room ON hostel.id = room.hostel_id
                         WHERE interval BETWEEN date_dp AND date_cb
                         GROUP bY interval, room_id, planet.name, booking_calendar.hostel_id, room.max_place
-                        -- on fait la somme des personnes qui ont la même chanbre à la même date
+                        -- We sum up the people who share the same room on the same date
                         HAVING SUM(booking_calendar.nbparticipants)+ person > room.max_place
                         ORDER BY interval, room_id, planet.name, booking_calendar.hostel_id),
-        -- tableau qui répertorie toutes les chambres et hostel, on le leftjoin avec le tableau précédent, si une valeur est null alors c'est que la chambre est disponible
+        -- In the table that lists all rooms and hostels, we perform a left join with the previous table, and if a value is null, it means the room is available
 		compare_calendar AS(
             SELECT web.planet.name, web.room.id FROM web.planet
             JOIN web.hostel ON web.hostel.planet_id = web.planet.id
@@ -56,11 +57,13 @@ SELECT *
     )
 $$ LANGUAGE sql SECURITY DEFINER;
 
+-- I create a function that will allow me to verify the validity of a reservation in the final step
 CREATE OR REPLACE FUNCTION web.available_lastcheck(person int, date_dp date, date_cb date, id_room int, id_planet int) RETURNS SETOF web.planet AS $$
 SELECT *
   FROM web.planet
   WHERE id = id_planet
     AND NOT EXISTS (
+        -- Subquery to check room availability
 		SELECT 1 FROM generate_series(date_dp, date_cb, interval '1 day') AS interval
                 WHERE EXISTS (
                     SELECT 1
@@ -76,7 +79,7 @@ SELECT *
                     HAVING SUM(booking.nbparticipants) + person > room.max_place)
     )
     AND NOT EXISTS (
-      -- Sous-requête pour vérifier les vols complets de retour
+      -- Subquery to check fully booked return flights
       SELECT 1
       FROM web.comeback
       JOIN web.spaceship ON web.comeback.spaceship_id = web.spaceship.id
@@ -85,7 +88,7 @@ SELECT *
         AND web.comeback.planet_id = id_planet
     )
     AND NOT EXISTS (
-      -- Sous-requête pour vérifier les vols complets de départ
+      -- Subquery to check fully booked outbound flights
       SELECT 1
       FROM web.departure
       JOIN web.spaceship ON web.departure.spaceship_id = web.spaceship.id
@@ -95,6 +98,7 @@ SELECT *
     );
 $$ LANGUAGE sql SECURITY DEFINER;	
 
+-- I create a function that allows me to delete a reservation
 CREATE OR REPLACE FUNCTION web.delete_booking(id_booking int, id_user int) RETURNS boolean AS $$
 DECLARE 
     departure_db_id integer;
@@ -131,7 +135,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
--- je crée un fonction qui va me permettre de créer une reservation
+-- I create a function that allows me to create a reservation
 CREATE OR REPLACE FUNCTION web.insert_booking(b json) RETURNS web.booking AS $$
 DECLARE 
     comeback_db_id integer;
@@ -148,7 +152,7 @@ BEGIN
     INTO departure_db_id
     FROM web.departure WHERE planet_id=(b->>'planet_id')::int AND departure_date=(b->>'dp_date')::date;
 
-    -- SI l'id est nul, alors j'insère une ligne dans departure, où departure_date = cd_date et planet_id = planet_id
+    -- If the ID is null, then I insert a row into the 'departure' table where 'departure_date' = 'cd_date' and 'planet_id' = 'planet_id'
     IF departure_db_id is null
     THEN 
         INSERT INTO web.departure
@@ -171,7 +175,7 @@ BEGIN
     INTO comeback_db_id
     FROM web.comeback WHERE planet_id=(b->>'planet_id')::int AND comeback_date=(b->>'cb_date')::date;
 
-    -- SI l'id est nul, alors j'insère une ligne dans comeback, où comeback_date = cd_date et planet_id = planet_id
+    -- If the ID is null, then I insert a row into the 'comeback' table where 'comeback_date' = 'cd_date' and 'planet_id' = 'planet_id'
     IF comeback_db_id is null
     THEN 
         INSERT INTO web.comeback
@@ -203,13 +207,13 @@ BEGIN
         (b->>'user_id')::int
 	)
     RETURNING * INTO creating_booking;
-	-- je retourne la ligne insérée
+	-- I return the inserted row
 	RETURN creating_booking;
 END; 
 
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-
+-- I create a function that allows me to check hotel availability for the provided dates and number of people
 CREATE OR REPLACE FUNCTION web.search_available_hostel(person int, date_dp date, date_cb date, planet_name text) RETURNS TABLE(id int, name text, content text, adress text, img text, planet_id int, room json[]) AS $$
 SELECT * FROM
 (SELECT 

@@ -1,20 +1,24 @@
+// REQUIRE MODULES
 const express = require("express");
 const router = express.Router();
 const validationService = require("../service/validation/validationService");
 
+// CONTROLLER
 const { bookingController } = require("../controller");
 
+//ROUTES
 /**
- * GET /booking
+ * GET /search
  * @summary Get a booking
  * @description Get all planets and hostels depending on disponibility
  * @tags Booking
- * @param {Booking} request.query.required - Booking info (hotel and room depending on query)
- * @return {[Booking]} 200 - success response - application/json
+ * @param {object} request.query.required - Example : search?departureDate=2023-09-06&comebackDate=2023-09-07&person=2
+ * @return {Array<Planet|Hostel>} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  * @return {ApiError} 404 - Research not found
  * @return {ApiError} 500 - Internal server error
  */
+
 router.get("/search", bookingController.search);
 
 /**

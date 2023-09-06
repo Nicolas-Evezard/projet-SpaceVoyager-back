@@ -1,8 +1,11 @@
+// REQUIRE
 let request = require("supertest");
 require("chai").should();
 
+//MY URL FOR REQUEST
 request = request("http://localhost:3000");
 
+//TEST FOR USER
 describe("USER", () => {
   let token;
   let userId;

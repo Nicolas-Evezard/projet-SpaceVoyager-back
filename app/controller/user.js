@@ -1,9 +1,16 @@
-const { userDatamapper } = require("../model");
-const bcrypt = require("bcrypt");
+// REQUIRE MODULES
 const debug = require("debug")("controller");
 const jwt = require("jsonwebtoken");
-const APIError = require("../service/APIError");
+
+// REQUIRE BCRYPT AND CONFIG
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
+
+//CLASS FOR ERROR
+const APIError = require("../service/APIError");
+
+// REQUIRE DATAMAPPER
+const { userDatamapper } = require("../model");
 
 const userController = {
   /**

@@ -1,3 +1,5 @@
+-- DROP ALL EXISTING FUNCTION
+
 DROP FUNCTION IF EXISTS web.search_available_planet;
 DROP FUNCTION IF EXISTS web.delete_booking;
 DROP FUNCTION IF EXISTS web.insert_booking;

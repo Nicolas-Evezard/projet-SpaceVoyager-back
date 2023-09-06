@@ -1,5 +1,8 @@
-const { planetDatamapper } = require("../model");
+// REQUIRE MODULES
 const debug = require("debug")("controller");
+
+// REQUIRE DATAMAPPER
+const { planetDatamapper } = require("../model");
 
 const planetController = {
   /**
