@@ -1,6 +1,11 @@
-const { bookingDatamapper } = require("../model");
+// REQUIRE MODULES
 const debug = require("debug")("controller");
+
+// CLASS FOR ERROR
 const APIError = require("../service/APIError");
+
+// REQUIRE DATAMAPPER
+const { bookingDatamapper } = require("../model");
 
 const bookingController = {
   /**

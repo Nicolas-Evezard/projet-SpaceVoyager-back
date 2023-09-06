@@ -1,8 +1,11 @@
+// REQUIRE MODULES
 const express = require("express");
 const router = express.Router();
 
+//CONTROLLER
 const { planetController } = require("../controller");
 
+//ROUTES
 /**
  * GET /planet
  * @summary Get all planet

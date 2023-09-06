@@ -1,11 +1,13 @@
+// REQUIRE MODULES
 const debug = require("debug")("errorHandler");
 const { appendFile } = require("node:fs/promises");
 const { join } = require("node:path");
 const APIError = require("./APIError");
 
+// ERROR HANDLING MODULE
 const errorHandler = {
   /**
-   * Méthode de gestion d'erreur
+   * Method to manage errors
    * @param {*} err
    * @param {*} req
    * @param {*} res
@@ -13,18 +15,13 @@ const errorHandler = {
    */
   async manage(err, req, res, next) {
     debug(err);
-    // j'écris dans le fichier de logs
     errorHandler.log(err);
-
-    // si je suis en dev, j'affiche l'erreur dans le terminal
     debug(err.error);
-
-    // j'informe l'utilisateur
     res.status(err.code).json({ error: err.message });
   },
   /**
-   * Méthode pour enregistrer les fichiers de logs
-   * @param {*} err
+   * Method to save a log file
+   * @param {*} err - error which is pass by middleware
    */
   async log(err) {
     const fileName = `${err.date.toISOString().slice(0, 10)}.log`;
@@ -40,11 +37,6 @@ const errorHandler = {
     }
     const text = `${time};${errorMessage};${err.stack}\r\n`;
     await appendFile(path, text);
-  },
-
-  notFound(req, res, next) {
-    const err = new APIError("Url not found !", 404);
-    next(err);
   },
 };
 

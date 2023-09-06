@@ -1,7 +1,11 @@
+// REQUIRE MODULES
 const client = require("../service/dbPool");
 const debug = require("debug")("model");
+
+// CLASS FOR ERROR
 const APIError = require("../service/APIError");
 
+//DEFINE TYPE FOR JSDOC
 /**
  * @typedef {object} User
  * @property {number} id - id of user

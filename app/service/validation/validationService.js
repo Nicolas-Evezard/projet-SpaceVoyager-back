@@ -1,16 +1,20 @@
+// REQUIRE MODULES
 const APIError = require("../APIError");
 const jwt = require("jsonwebtoken");
 const debug = require("debug")("validationService");
 
+// REQUIRE SCHEMAS
 const userSchema = require("../schema/userSchema");
 const bookingSchema = require("../schema/bookingSchema");
 
+// MIDDLEWARE TO CHECK THE VALIDITY OF DATAs
 const validationService = {
   /**
-   * Vérification du format des données reçues
+   * Check entering data format for a User
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @param {string} schema - "insert" or "update" to use different schema in the middleware
    */
   isUser(schema) {
     return (req, res, next) => {
@@ -26,10 +30,11 @@ const validationService = {
   },
 
   /**
-   * Vérification du format des données reçues
+   * Check entering data format for a Booking
    * @param {*} req
    * @param {*} res
    * @param {*} next
+   * @param {string} schema - "insert" to use the schema in the middleware
    */
   isBooking(schema) {
     return (req, res, next) => {
@@ -45,7 +50,7 @@ const validationService = {
   },
 
   /**
-   * Vérification du token d'un user
+   * Check the token of a User
    * @param {*} req
    * @param {*} res
    * @param {*} next
@@ -65,18 +70,18 @@ const validationService = {
       try {
         decoded = jwt.verify(token, process.env.JWT_SECRET);
       } catch (err) {
-        error = new APIError("Token invalide 1", 500, err);
+        error = new APIError("Une erreur est survenue", 500, err);
         next(error);
       }
       if (JSON.stringify(decoded.user)) {
         req.user = decoded.user;
         next();
       } else {
-        error = new APIError("Token invalide 2", 500);
+        error = new APIError("Une erreur est survenue", 500);
         next(error);
       }
     } else {
-      error = new APIError("Token invalide 3", 500);
+      error = new APIError("Une erreur est survenue", 500);
       next(error);
     }
   },

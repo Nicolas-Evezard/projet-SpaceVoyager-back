@@ -1,3 +1,4 @@
+-- Function for insert a user
 CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS TABLE (id int, firstname text, lastname text, mail text) AS $$
 
     INSERT INTO administration.user
@@ -9,10 +10,10 @@ CREATE OR REPLACE FUNCTION web.insert_user(u json) RETURNS TABLE (id int, firstn
         u->>'mail',
         u->>'password'
     )
-    -- Je retourne la ligne insérée
     RETURNING id, firstname, lastname, mail;
     $$ LANGUAGE sql SECURITY DEFINER;
 
+-- Function for delete a user
 CREATE OR REPLACE FUNCTION web.delete_user(id_user int) RETURNS boolean AS $$
 DECLARE
     id_selected int;
@@ -40,10 +41,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- this function returns a user by his id and his reservations
+-- function which returns a user by his id with his reservation
 CREATE OR REPLACE FUNCTION web.get_one_user(userID int)
 RETURNS TABLE (id int, firstname text, lastname text , mail text, reservation json[]) AS $$
-    -- Selectionne les champs de la table user et un champ sous forme de tableau, contenant des objets json
     SELECT administration.user.id, 
         administration.user.firstname, 
         administration.user.lastname, 
@@ -78,11 +78,10 @@ RETURNS TABLE (id int, firstname text, lastname text , mail text, reservation js
     WHERE administration.user.id = userID
         )
 FROM administration.user
--- Filtre en fonction du user_id
 WHERE administration.user.id = userID
 $$ LANGUAGE sql SECURITY DEFINER;
 
--- fonction qui met à jour un utilisateur
+-- Function for update a user
 CREATE OR REPLACE FUNCTION web.update_user(u json) RETURNS administration.user AS $$
 DECLARE
     user_db administration.user;
