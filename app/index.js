@@ -23,7 +23,7 @@ const corsOptions = {
   allowedHeaders: "Content-Type,Authorization", // Specify the allowed <headers></headers>
 };
 
-app.use(cors(corsOptions));
+app.use(cors(/* corsOptions */));
 
 // CONFIG SWAGGER
 const options = {
