@@ -1,0 +1,33 @@
+08:09:25.722;Erreur, ce n'est pas un user;Error: Erreur, ce n'est pas un user
+    at /var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/app/service/validation/validationService.js:27:14
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:144:13)
+    at isConnected (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/app/service/validation/validationService.js:78:9)
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at /var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/index.js:284:15
+    at param (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/index.js:365:14)
+08:10:29.134;Erreur, ce n'est pas un user;Error: Erreur, ce n'est pas un user
+    at /var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/app/service/validation/validationService.js:27:14
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:144:13)
+    at isConnected (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/app/service/validation/validationService.js:78:9)
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at /var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/index.js:284:15
+    at param (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/index.js:365:14)
+08:11:08.141;Erreur, ce n'est pas un user;Error: Erreur, ce n'est pas un user
+    at /var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/app/service/validation/validationService.js:27:14
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:144:13)
+    at isConnected (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/app/service/validation/validationService.js:78:9)
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/layer.js:95:5)
+    at /var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/index.js:284:15
+    at param (/var/www/html/SpaceVoyager/projet-02-spaceVoyager-back/node_modules/express/lib/router/index.js:365:14)
