@@ -14,7 +14,11 @@ app.use(express.json());
 
 // This is cors configuration part.
 const corsOptions = {
-  origin: "https://space-voyager-front.onrender.com",
+  origin: [
+    "https://space-voyager-front.onrender.com",
+    "https://spacevoyager.fr",
+    "https://www.spacevoyager.fr",
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type,Authorization", // Specify the allowed <headers></headers>
 };
