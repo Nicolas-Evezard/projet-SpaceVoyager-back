@@ -12,13 +12,14 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
-
 // This is cors configuration part.
-/* const corsOptions = {
-  origin: "http://spacevoyager.fr",
-  optionsSuccessStatus: 200,
-}; */
+const corsOptions = {
+  origin: "https://space-voyager-front.onrender.com",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type,Authorization", // Specify the allowed <headers></headers>
+};
+
+app.use(cors(corsOptions));
 
 // CONFIG SWAGGER
 const options = {
