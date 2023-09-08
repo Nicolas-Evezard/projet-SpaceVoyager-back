@@ -1,6 +1,6 @@
 {
-  "name": "projet-02-spacevoyager-back",
-  "version": "1.0.0",
+  "name": "projet-spacevoyager-back",
+  "version": "1.1.0",
   "description": "Projet d'agence de voyage spatial - API Back",
   "main": "index.js",
   "scripts": {
